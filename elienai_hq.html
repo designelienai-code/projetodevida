@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elienai HQ — Health Designer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f0efed;
+  --sidebar: #0c0c0c;
+  --sidebar-hover: #181818;
+  --sidebar-active: #0d2556;
+  --white: #ffffff;
+  --blue: #1a6fc4;
+  --blue-dark: #0a2a6e;
+  --blue-mid: #4db8f0;
+  --blue-light: #e8f2fb;
+  --blue-pale: #f0f7ff;
+  --text: #1a1a1a;
+  --text-2: #555;
+  --text-3: #999;
+  --border: #e2e2df;
+  --green: #1a9460;
+  --green-light: #eaf7f0;
+  --amber: #b86e10;
+  --amber-light: #fef4e4;
+  --purple: #5e35b1;
+  --purple-light: #ede8ff;
+  --red: #c42020;
+  --red-light: #fdeaea;
+  --r: 12px;
+  --rs: 8px;
+  --sw: 220px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body { height:100%; font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text); font-size:14px; line-height:1.6; overflow:hidden; }
+
+/* ── LAYOUT ── */
+.layout { display:flex; height:100vh; }
+
+/* ── SIDEBAR ── */
+.sidebar { width:var(--sw); background:var(--sidebar); display:flex; flex-direction:column; flex-shrink:0; overflow-y:auto; overflow-x:hidden; }
+.sidebar::-webkit-scrollbar { width:0; }
+
+.logo { padding:22px 18px 18px; border-bottom:1px solid #1c1c1c; }
+.logo-mark { font-family:'Syne',sans-serif; font-size:20px; font-weight:800; color:#fff; letter-spacing:-0.03em; line-height:1; margin-bottom:3px; }
+.logo-mark span { color:var(--blue-mid); }
+.logo-sub { font-family:'DM Mono',monospace; font-size:9px; color:#444; letter-spacing:0.18em; text-transform:uppercase; }
+
+.nav { padding:10px 8px; flex:1; }
+.nav-section { font-family:'DM Mono',monospace; font-size:9px; color:#383838; letter-spacing:0.15em; text-transform:uppercase; padding:14px 10px 5px; }
+.nav-item { display:flex; align-items:center; gap:9px; padding:8px 10px; border-radius:var(--rs); cursor:pointer; transition:background .12s,color .12s; color:#666; font-size:12.5px; font-weight:400; margin-bottom:1px; border:none; background:none; width:100%; text-align:left; }
+.nav-item:hover { background:var(--sidebar-hover); color:#bbb; }
+.nav-item.active { background:var(--sidebar-active); color:#fff; font-weight:500; }
+.nav-icon { width:15px; height:15px; flex-shrink:0; stroke:currentColor; fill:none; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; opacity:.7; }
+.nav-item.active .nav-icon { opacity:1; }
+.nav-badge { margin-left:auto; font-family:'DM Mono',monospace; font-size:9px; background:#191919; color:#444; padding:1px 6px; border-radius:20px; }
+.nav-item.active .nav-badge { background:rgba(77,184,240,.15); color:var(--blue-mid); }
+
+.sidebar-bottom { padding:14px 18px; border-top:1px solid #181818; }
+.phase-lbl { font-family:'DM Mono',monospace; font-size:9px; color:#3a3a3a; text-transform:uppercase; letter-spacing:.1em; margin-bottom:6px; }
+.phase-badge { display:inline-block; font-family:'DM Mono',monospace; font-size:10px; background:rgba(26,111,196,.15); color:var(--blue-mid); padding:3px 10px; border-radius:20px; border:1px solid rgba(77,184,240,.18); }
+.phase-date { font-family:'DM Mono',monospace; font-size:9px; color:#2e2e2e; margin-top:5px; }
+
+/* ── MAIN ── */
+.main { flex:1; overflow-y:auto; overflow-x:hidden; }
+.main::-webkit-scrollbar { width:4px; }
+.main::-webkit-scrollbar-track { background:transparent; }
+.main::-webkit-scrollbar-thumb { background:var(--border); border-radius:4px; }
+
+.section { display:none; padding:28px 28px 40px; animation:fadeIn .18s ease; }
+.section.active { display:block; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+
+.sec-eye { font-family:'DM Mono',monospace; font-size:10px; color:var(--blue); letter-spacing:.12em; text-transform:uppercase; margin-bottom:5px; }
+.sec-title { font-family:'Syne',sans-serif; font-size:26px; font-weight:800; color:var(--text); line-height:1.1; letter-spacing:-.02em; }
+.sec-sub { font-size:13px; color:var(--text-2); margin-top:5px; line-height:1.55; max-width:520px; }
+.sec-head { margin-bottom:22px; }
+
+/* ── CARDS ── */
+.card { background:var(--white); border-radius:var(--r); border:1px solid var(--border); padding:20px; margin-bottom:14px; }
+.card-title { font-family:'Syne',sans-serif; font-size:13px; font-weight:700; color:var(--text); margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+.ctdot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+.g2 { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+.g3 { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+.g4 { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+.divider { height:1px; background:var(--border); margin:16px 0; }
+
+/* ── MANIFESTO ── */
+.manifesto { background:var(--sidebar); border-radius:var(--r); padding:22px 26px; margin-bottom:14px; border-left:3px solid var(--blue); }
+.manifesto p { font-family:'Syne',sans-serif; font-size:14px; color:rgba(255,255,255,.78); line-height:1.75; }
+.manifesto strong { color:#fff; }
+
+/* ── PHASES ── */
+.phase-card { background:var(--white); border:1px solid var(--border); border-radius:var(--rs); padding:14px; position:relative; transition:border-color .15s; }
+.phase-card.now { background:var(--blue-light); border-color:var(--blue); }
+.phase-n { font-family:'DM Mono',monospace; font-size:9px; color:var(--text-3); text-transform:uppercase; letter-spacing:.1em; margin-bottom:3px; }
+.phase-card.now .phase-n { color:var(--blue); }
+.phase-nm { font-family:'Syne',sans-serif; font-size:13px; font-weight:700; color:var(--text); margin-bottom:2px; }
+.phase-p { font-family:'DM Mono',monospace; font-size:10px; color:var(--text-3); }
+.now-dot { position:absolute; top:10px; right:10px; width:7px; height:7px; border-radius:50%; background:var(--blue); box-shadow:0 0 0 3px rgba(26,111,196,.18); animation:pulse 2s infinite; }
+@keyframes pulse { 0%,100% { box-shadow:0 0 0 3px rgba(26,111,196,.18); } 50% { box-shadow:0 0 0 6px rgba(26,111,196,.08); } }
+
+/* ── PILLAR CARDS ── */
+.pillar-card { background:var(--white); border:1px solid var(--border); border-radius:var(--r); padding:18px; cursor:pointer; transition:all .15s; position:relative; overflow:hidden; }
+.pillar-card:hover { transform:translateY(-2px); box-shadow:0 4px 20px rgba(0,0,0,.07); }
+.pillar-card::before { content:''; position:absolute; top:0;left:0;right:0; height:3px; border-radius:var(--r) var(--r) 0 0; }
+.pillar-card[data-c="blue"]::before { background:var(--blue); }
+.pillar-card[data-c="green"]::before { background:var(--green); }
+.pillar-card[data-c="purple"]::before { background:var(--purple); }
+.pillar-card[data-c="amber"]::before { background:var(--amber); }
+.p-name { font-family:'Syne',sans-serif; font-size:13px; font-weight:700; margin-bottom:5px; }
+.p-desc { font-size:12px; color:var(--text-2); line-height:1.5; margin-bottom:12px; }
+.prog-wrap { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+.prog-bar { flex:1; height:3px; background:var(--border); border-radius:3px; overflow:hidden; }
+.prog-fill { height:100%; border-radius:3px; transition:width .5s; }
+.prog-pct { font-family:'DM Mono',monospace; font-size:11px; color:var(--text-3); min-width:26px; }
+.badge { display:inline-flex; align-items:center; font-family:'DM Mono',monospace; font-size:10px; padding:3px 9px; border-radius:20px; }
+.b-blue { background:var(--blue-light); color:var(--blue-dark); }
+.b-green { background:var(--green-light); color:var(--green); }
+.b-amber { background:var(--amber-light); color:var(--amber); }
+.b-purple { background:var(--purple-light); color:var(--purple); }
+.b-red { background:var(--red-light); color:var(--red); }
+.b-dark { background:#f0efed; color:#555; }
+
+/* ── FOCUS BANNER ── */
+.focus-banner { background:var(--blue-dark); border-radius:var(--r); padding:18px 22px; margin-bottom:14px; display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; }
+.focus-eye { font-family:'DM Mono',monospace; font-size:9px; color:rgba(255,255,255,.4); text-transform:uppercase; letter-spacing:.1em; margin-bottom:3px; }
+.focus-ttl { font-family:'Syne',sans-serif; font-size:15px; font-weight:700; color:#fff; }
+.focus-btns { display:flex; gap:7px; flex-wrap:wrap; }
+.btn-w { font-family:'DM Mono',monospace; font-size:10px; color:#fff; border:1px solid rgba(255,255,255,.2); background:rgba(255,255,255,.08); padding:6px 13px; border-radius:20px; cursor:pointer; transition:background .15s; white-space:nowrap; }
+.btn-w:hover { background:rgba(255,255,255,.16); }
+
+/* ── TASKS ── */
+.task-list { list-style:none; }
+.task-item { display:flex; align-items:flex-start; gap:10px; padding:10px 0; border-bottom:1px solid var(--border); cursor:pointer; transition:opacity .15s; }
+.task-item:last-child { border-bottom:none; }
+.task-item:hover { opacity:.8; }
+.tcheck { width:17px; height:17px; border:1.5px solid var(--border); border-radius:4px; flex-shrink:0; margin-top:2px; display:flex; align-items:center; justify-content:center; transition:all .15s; }
+.task-item.done .tcheck { background:var(--blue); border-color:var(--blue); }
+.task-item.done .task-txt { text-decoration:line-through; color:var(--text-3); }
+.task-txt { font-size:13px; line-height:1.4; }
+.task-cat { font-family:'DM Mono',monospace; font-size:10px; color:var(--text-3); margin-top:2px; }
+
+/* ── STATS MINI ── */
+.stat-mini { background:var(--bg); border-radius:var(--rs); padding:14px; text-align:center; }
+.stat-n { font-family:'Syne',sans-serif; font-size:28px; font-weight:800; color:var(--text); line-height:1; margin-bottom:4px; }
+.stat-l { font-family:'DM Mono',monospace; font-size:10px; color:var(--text-3); text-transform:uppercase; letter-spacing:.08em; }
+
+/* ── CAL ── */
+.cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:6px; margin-bottom:14px; }
+.cal-day { border-radius:var(--rs); padding:10px 5px; text-align:center; }
+.cal-dlbl { font-family:'DM Mono',monospace; font-size:9px; color:var(--text-3); text-transform:uppercase; margin-bottom:5px; }
+.cal-dtype { font-size:11px; font-weight:500; line-height:1.3; }
+
+/* ── CONTENT PILLARS ── */
+.cpillar { background:var(--white); border:1px solid var(--border); border-radius:var(--rs); padding:13px 15px; margin-bottom:7px; cursor:pointer; transition:border-color .15s; }
+.cpillar:hover { border-color:var(--blue); }
+.cpillar.open { border-color:var(--blue); }
+.cp-row { display:flex; align-items:center; gap:9px; }
+.cp-dot { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+.cp-title { font-size:13px; font-weight:500; flex:1; }
+.cp-freq { font-family:'DM Mono',monospace; font-size:10px; color:var(--text-3); }
+.cp-arr { font-size:11px; color:var(--text-3); transition:transform .2s; margin-left:6px; }
+.cpillar.open .cp-arr { transform:rotate(90deg); }
+.cp-detail { display:none; padding-top:12px; }
+.cpillar.open .cp-detail { display:block; }
+.dl-lbl { font-family:'DM Mono',monospace; font-size:9px; color:var(--text-3); text-transform:uppercase; letter-spacing:.1em; margin-bottom:3px; margin-top:10px; }
+.dl-lbl:first-child { margin-top:0; }
+.dl-txt { font-size:12px; line-height:1.55; }
+.dl-txt em { font-style:normal; color:var(--blue); font-weight:500; }
+.hook { background:var(--bg); border-left:2px solid var(--blue); padding:7px 11px; border-radius:0 var(--rs) var(--rs) 0; font-size:12px; color:var(--text); line-height:1.5; margin-bottom:5px; font-style:italic; }
+
+/* ── RULES ── */
+.rule-row { display:flex; gap:12px; padding:11px 0; border-bottom:1px solid var(--border); align-items:flex-start; }
+.rule-row:last-child { border-bottom:none; }
+.rule-n { font-family:'DM Mono',monospace; font-size:11px; color:var(--blue); font-weight:500; min-width:22px; padding-top:1px; }
+.rule-t { font-size:13px; line-height:1.5; }
+.rule-t strong { font-weight:500; }
+
+/* ── SERVICES ── */
+.svc-card { background:var(--white); border:1px solid var(--border); border-radius:var(--r); padding:20px; position:relative; overflow:hidden; transition:box-shadow .15s; }
+.svc-card:hover { box-shadow:0 4px 20px rgba(0,0,0,.07); }
+.svc-card::after { content:''; position:absolute; top:0;left:0;right:0; height:3px; }
+.svc-card.entry::after { background:var(--green); }
+.svc-card.core::after { background:var(--blue); }
+.svc-card.premium::after { background:var(--purple); }
+.svc-n { font-family:'Syne',sans-serif; font-size:15px; font-weight:700; margin-bottom:5px; }
+.svc-price { font-family:'DM Mono',monospace; font-size:22px; font-weight:500; color:var(--blue); margin-bottom:8px; }
+.svc-desc { font-size:12px; color:var(--text-2); line-height:1.6; margin-bottom:12px; }
+.svc-list { list-style:none; }
+.svc-list li { font-size:12px; padding:3px 0 3px 14px; position:relative; }
+.svc-list li::before { content:'→'; position:absolute; left:0; color:var(--blue); font-size:11px; }
+
+/* ── FEATURES ── */
+.feat-row { display:flex; gap:11px; padding:11px 0; border-bottom:1px solid var(--border); align-items:flex-start; }
+.feat-row:last-child { border-bottom:none; }
+.feat-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; margin-top:4px; }
+.feat-t { font-size:13px; flex:1; line-height:1.4; }
+.feat-note { font-family:'DM Mono',monospace; font-size:10px; color:var(--text-3); margin-top:2px; }
+
+/* ── PROMPTS ── */
+.pcat-ttl { font-family:'DM Mono',monospace; font-size:10px; color:var(--text-3); text-transform:uppercase; letter-spacing:.12em; margin-bottom:9px; padding-bottom:6px; border-bottom:1px solid var(--border); }
+.pcat { margin-bottom:22px; }
+.prompt-item { background:var(--white); border:1px solid var(--border); border-radius:var(--rs); padding:13px 15px; margin-bottom:7px; display:flex; align-items:center; gap:12px; cursor:pointer; transition:all .15s; }
+.prompt-item:hover { border-color:var(--blue); transform:translateX(2px); }
+.prompt-txt { flex:1; font-size:13px; line-height:1.4; color:var(--text); }
+.prompt-btn { flex-shrink:0; font-family:'DM Mono',monospace; font-size:10px; background:var(--bg); border:1px solid var(--border); color:var(--text-3); padding:4px 10px; border-radius:var(--rs); cursor:pointer; transition:all .15s; white-space:nowrap; }
+.prompt-item:hover .prompt-btn { background:var(--blue); color:#fff; border-color:var(--blue); }
+
+/* ── ACTION BTNS ── */
+.act-row { display:flex; gap:8px; flex-wrap:wrap; margin-top:16px; }
+.btn-primary { font-family:'DM Mono',monospace; font-size:11px; background:var(--blue); color:#fff; border:none; padding:8px 16px; border-radius:20px; cursor:pointer; transition:all .15s; }
+.btn-primary:hover { background:var(--blue-dark); }
+.btn-secondary { font-family:'DM Mono',monospace; font-size:11px; background:var(--white); color:var(--text-2); border:1px solid var(--border); padding:8px 16px; border-radius:20px; cursor:pointer; transition:all .15s; }
+.btn-secondary:hover { border-color:var(--blue); color:var(--blue); }
+
+/* ── TOAST ── */
+.toast { position:fixed; bottom:22px; left:50%; transform:translateX(-50%) translateY(70px); background:#111; color:#fff; padding:9px 18px; border-radius:100px; font-family:'DM Mono',monospace; font-size:11px; z-index:9999; transition:transform .28s cubic-bezier(.34,1.56,.64,1); pointer-events:none; white-space:nowrap; }
+.toast.show { transform:translateX(-50%) translateY(0); }
+
+/* ── NOTES AREA ── */
+.notes-area { width:100%; min-height:80px; background:var(--bg); border:1px solid var(--border); border-radius:var(--rs); padding:10px 12px; font-family:'DM Sans',sans-serif; font-size:13px; color:var(--text); resize:vertical; outline:none; transition:border-color .15s; line-height:1.6; }
+.notes-area:focus { border-color:var(--blue); }
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- ─────────── SIDEBAR ─────────── -->
+<aside class="sidebar">
+  <div class="logo">
+    <div class="logo-mark">elienai<span>.</span></div>
+    <div class="logo-sub">Health Designer HQ</div>
+  </div>
+
+  <nav class="nav">
+    <div class="nav-section">Principal</div>
+    <button class="nav-item active" data-target="home">
+      <svg class="nav-icon" viewBox="0 0 16 16"><path d="M2 7L8 2l6 5v7H2V7z"/><path d="M6 14V9h4v5"/></svg>
+      Visão geral
+    </button>
+
+    <div class="nav-section">Os 4 pilares</div>
+    <button class="nav-item" data-target="instagram">
+      <svg class="nav-icon" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="3"/><circle cx="8" cy="8" r="2.5"/><circle cx="11.5" cy="4.5" r=".6" fill="currentColor" stroke="none"/></svg>
+      Marca digital
+      <span class="nav-badge">Instagram</span>
+    </button>
+    <button class="nav-item" data-target="agencia">
+      <svg class="nav-icon" viewBox="0 0 16 16"><path d="M3 14V7.5L8 3l5 4.5V14"/><path d="M6 14v-4h4v4"/></svg>
+      Agência médica
+    </button>
+    <button class="nav-item" data-target="app">
+      <svg class="nav-icon" viewBox="0 0 16 16"><rect x="4" y="1" width="8" height="14" rx="1.5"/><line x1="6.5" y1="12.5" x2="9.5" y2="12.5"/><line x1="6" y1="5" x2="10" y2="5"/><line x1="6" y1="7.5" x2="9" y2="7.5"/></svg>
+      ComprimiNdo
+      <span class="nav-badge">App</span>
+    </button>
+    <button class="nav-item" data-target="conhecimento">
+      <svg class="nav-icon" viewBox="0 0 16 16"><path d="M8 2L2 5v4c0 3 2.5 5.5 6 6 3.5-.5 6-3 6-6V5L8 2z"/></svg>
+      Conhecimento
+    </button>
+
+    <div class="nav-section">Ferramentas</div>
+    <button class="nav-item" data-target="prompts">
+      <svg class="nav-icon" viewBox="0 0 16 16"><path d="M8 1a6 6 0 100 12A6 6 0 008 1z"/><path d="M8 6a1.5 1.5 0 011.5 1.5c0 1-1.5 1.5-1.5 2.5"/><circle cx="8" cy="12.5" r=".6" fill="currentColor" stroke="none"/></svg>
+      Prompts IA
+      <span class="nav-badge">22</span>
+    </button>
+    <button class="nav-item" data-target="notas">
+      <svg class="nav-icon" viewBox="0 0 16 16"><path d="M3 2h10a1 1 0 011 1v10a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1z"/><line x1="5" y1="6" x2="11" y2="6"/><line x1="5" y1="9" x2="9" y2="9"/></svg>
+      Notas
+    </button>
+  </nav>
+
+  <div class="sidebar-bottom">
+    <div class="phase-lbl">Fase atual</div>
+    <div class="phase-badge">Fase 1 — Fundação</div>
+    <div class="phase-date" id="current-date"></div>
+  </div>
+</aside>
+
+<!-- ─────────── MAIN ─────────── -->
+<main class="main">
+
+<!-- ════ HOME ════ -->
+<div class="section active" id="s-home">
+  <div class="sec-head">
+    <div class="sec-eye">Dashboard</div>
+    <h1 class="sec-title">Visão geral</h1>
+    <p class="sec-sub">Seu centro de comando. Pilares, progresso e foco da semana — tudo num só lugar.</p>
+  </div>
+
+  <div class="manifesto">
+    <p>Você está construindo algo que <strong>não existe ainda</strong>: um médico que domina design e tecnologia de saúde. Não é um freelancer — é uma nova categoria. O objetivo é <strong>monetizar antes de se formar</strong>, lançar o ComprimiNdo e fundar a primeira agência de tech médica séria do mercado latino-americano.</p>
+  </div>
+
+  <div class="g4" style="margin-bottom:14px">
+    <div class="phase-card now">
+      <div class="now-dot"></div>
+      <div class="phase-n">Fase 1</div>
+      <div class="phase-nm">Fundação</div>
+      <div class="phase-p">Agora — 6 meses</div>
+    </div>
+    <div class="phase-card">
+      <div class="phase-n">Fase 2</div>
+      <div class="phase-nm">Primeira receita</div>
+      <div class="phase-p">6 — 12 meses</div>
+    </div>
+    <div class="phase-card">
+      <div class="phase-n">Fase 3</div>
+      <div class="phase-nm">Escala</div>
+      <div class="phase-p">1 — 2 anos</div>
+    </div>
+    <div class="phase-card">
+      <div class="phase-n">Fase 4</div>
+      <div class="phase-nm">Império</div>
+      <div class="phase-p">Formatura +</div>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div class="pillar-card" data-c="blue" onclick="go('instagram')">
+      <div class="p-name">Marca digital</div>
+      <div class="p-desc">elienai.health — audiência de negócios de saúde</div>
+      <div class="prog-wrap"><div class="prog-bar"><div class="prog-fill" id="pp-blue" style="width:15%;background:var(--blue)"></div></div><div class="prog-pct" id="pt-blue">15%</div></div>
+      <span class="badge b-blue">Iniciar agora</span>
+    </div>
+    <div class="pillar-card" data-c="green" onclick="go('conhecimento')">
+      <div class="p-name">Conhecimento</div>
+      <div class="p-desc">UI/UX + healthtech + medicina combinados</div>
+      <div class="prog-wrap"><div class="prog-bar"><div class="prog-fill" id="pp-green" style="width:30%;background:var(--green)"></div></div><div class="prog-pct" id="pt-green">30%</div></div>
+      <span class="badge b-green">Contínuo</span>
+    </div>
+    <div class="pillar-card" data-c="purple" onclick="go('agencia')">
+      <div class="p-name">Agência médica</div>
+      <div class="p-desc">Primeiro veículo de receita — design para clínicas</div>
+      <div class="prog-wrap"><div class="prog-bar"><div class="prog-fill" id="pp-purple" style="width:5%;background:var(--purple)"></div></div><div class="prog-pct" id="pt-purple">5%</div></div>
+      <span class="badge b-purple">Estruturar em 3 meses</span>
+    </div>
+    <div class="pillar-card" data-c="amber" onclick="go('app')">
+      <div class="p-name">ComprimiNdo</div>
+      <div class="p-desc">App de saúde familiar com IA — produto próprio</div>
+      <div class="prog-wrap"><div class="prog-bar"><div class="prog-fill" id="pp-amber" style="width:10%;background:var(--amber)"></div></div><div class="prog-pct" id="pt-amber">10%</div></div>
+      <span class="badge b-amber">Em desenvolvimento</span>
+    </div>
+  </div>
+
+  <div class="focus-banner">
+    <div>
+      <div class="focus-eye">Foco desta semana — Fase 1</div>
+      <div class="focus-ttl">Fundação da marca e primeiros posts</div>
+    </div>
+    <div class="focus-btns">
+      <button class="btn-w" onclick="copyOpen('Cria para mim os primeiros 9 posts completos com texto de legenda, gancho, hashtags e ideia visual para lançar o elienai.health agora como health designer que atende clínicas')">Gerar 9 posts ↗</button>
+      <button class="btn-w" onclick="copyOpen('Quero estruturar minha agência de tecnologia médica — defina os 3 serviços principais, precificação realista para o mercado boliviano e brasileiro, e como conseguir os primeiros clientes sendo estudante de medicina')">Estruturar agência ↗</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="ctdot" style="background:var(--blue)"></div>Tarefas desta fase — clique para marcar</div>
+    <ul class="task-list">
+      <li class="task-item" onclick="toggleTask(this)" data-id="t1">
+        <div class="tcheck"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div><div class="task-txt">Publicar grid inicial do elienai.health — 9 posts com posicionamento claro</div><div class="task-cat">Marca digital · Alta prioridade</div></div>
+      </li>
+      <li class="task-item" onclick="toggleTask(this)" data-id="t2">
+        <div class="tcheck"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div><div class="task-txt">Redesenhar logo pessoal para o posicionamento health designer</div><div class="task-cat">Marca digital · Alta prioridade</div></div>
+      </li>
+      <li class="task-item" onclick="toggleTask(this)" data-id="t3">
+        <div class="tcheck"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div><div class="task-txt">Definir os 3 serviços da agência com oferta de entrada para clínicas</div><div class="task-cat">Agência médica · Alta prioridade</div></div>
+      </li>
+      <li class="task-item" onclick="toggleTask(this)" data-id="t4">
+        <div class="tcheck"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div><div class="task-txt">Mapear fluxo core do ComprimiNdo e validar com 5 pessoas reais</div><div class="task-cat">ComprimiNdo · Média prioridade</div></div>
+      </li>
+      <li class="task-item" onclick="toggleTask(this)" data-id="t5">
+        <div class="tcheck"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div><div class="task-txt">Atualizar bio e link da bio do Instagram com posicionamento novo</div><div class="task-cat">Marca digital · Alta prioridade</div></div>
+      </li>
+      <li class="task-item" onclick="toggleTask(this)" data-id="t6">
+        <div class="tcheck"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div><div class="task-txt">Criar portfólio com 3 cases — mesmo que sejam projetos conceituais</div><div class="task-cat">Agência médica · Média prioridade</div></div>
+      </li>
+      <li class="task-item" onclick="toggleTask(this)" data-id="t7">
+        <div class="tcheck"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div><div class="task-txt">Publicar primeiro Reel mostrando processo no Figma</div><div class="task-cat">Marca digital · Alta prioridade</div></div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- ════ INSTAGRAM ════ -->
+<div class="section" id="s-instagram">
+  <div class="sec-head">
+    <div class="sec-eye">Pilar 1 — Marca digital</div>
+    <h1 class="sec-title">Estratégia Instagram</h1>
+    <p class="sec-sub">Foco em clínicas e startups de saúde — nunca em designers. Cada post deve fazer sentido para um gestor de saúde que não sabe o que é Figma.</p>
+  </div>
+
+  <div class="g3" style="margin-bottom:14px">
+    <div class="stat-mini"><div class="stat-n">7</div><div class="stat-l">Posts / semana</div></div>
+    <div class="stat-mini"><div class="stat-n">5</div><div class="stat-l">Pilares de conteúdo</div></div>
+    <div class="stat-mini"><div class="stat-n">3+</div><div class="stat-l">Reels mínimos</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="ctdot" style="background:var(--blue)"></div>Ritmo semanal</div>
+    <div class="cal-grid">
+      <div class="cal-day" style="background:var(--red-light)"><div class="cal-dlbl">Seg</div><div class="cal-dtype" style="color:var(--red)">Dor revelada</div></div>
+      <div class="cal-day" style="background:var(--blue-light)"><div class="cal-dlbl">Ter</div><div class="cal-dtype" style="color:var(--blue)">Prova</div></div>
+      <div class="cal-day" style="background:var(--green-light)"><div class="cal-dlbl">Qua</div><div class="cal-dtype" style="color:var(--green)">Educação</div></div>
+      <div class="cal-day" style="background:var(--red-light)"><div class="cal-dlbl">Qui</div><div class="cal-dtype" style="color:var(--red)">Dor revelada</div></div>
+      <div class="cal-day" style="background:var(--blue-light)"><div class="cal-dlbl">Sex</div><div class="cal-dtype" style="color:var(--blue)">Prova</div></div>
+      <div class="cal-day" style="background:var(--amber-light)"><div class="cal-dlbl">Sáb</div><div class="cal-dtype" style="color:var(--amber)">Identidade</div></div>
+      <div class="cal-day" style="background:var(--purple-light)"><div class="cal-dlbl">Dom</div><div class="cal-dtype" style="color:var(--purple)">CTA</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="ctdot" style="background:var(--red)"></div>Os 5 pilares — clique para expandir</div>
+
+    <div class="cpillar open">
+      <div class="cp-row"><div class="cp-dot" style="background:var(--red)"></div><div class="cp-title">Dor revelada</div><div class="cp-freq">2× / semana</div><div class="cp-arr">▶</div></div>
+      <div class="cp-detail">
+        <div class="dl-lbl">Objetivo</div><div class="dl-txt">Fazer o cliente pensar "isso acontece comigo". Não vende — valida a dor dele antes de apresentar solução.</div>
+        <div class="dl-lbl">Fórmula</div><div class="dl-txt"><em>[Dado chocante sobre saúde digital]</em> + <em>[Consequência que o cliente já viveu]</em></div>
+        <div class="dl-lbl">Exemplos de gancho</div>
+        <div class="hook">"Sua clínica tem site. Mas 7 em cada 10 pacientes não conseguem agendar por ele."</div>
+        <div class="hook">"O maior problema do seu app de saúde não é o código — é que o médico nunca foi consultado no design."</div>
+        <div class="hook">"Quando o paciente não entende a bula, o erro de medicação não é culpa dele."</div>
+      </div>
+    </div>
+
+    <div class="cpillar">
+      <div class="cp-row"><div class="cp-dot" style="background:var(--blue)"></div><div class="cp-title">Prova de competência</div><div class="cp-freq">2× / semana</div><div class="cp-arr">▶</div></div>
+      <div class="cp-detail">
+        <div class="dl-lbl">Objetivo</div><div class="dl-txt">Converter interesse em confiança. Mostrar processo vale mais que resultado final polido.</div>
+        <div class="dl-lbl">Fórmula</div><div class="dl-txt"><em>[Problema do cliente]</em> → <em>[O que você fez]</em> → <em>[Resultado em números ou feedback real]</em></div>
+        <div class="dl-lbl">Exemplos de gancho</div>
+        <div class="hook">"Sistema de agendamento de uma clínica com 3 médicos. Antes: 40 min de ligação. Depois: 4 cliques."</div>
+        <div class="hook">"Redesenhei o fluxo de triagem em Figma. Um médico olhou e disse: finalmente alguém entendeu."</div>
+        <div class="hook">"Como mapeio o fluxo clínico ANTES de abrir o Figma. [mostrar tela + anotações médicas]"</div>
+      </div>
+    </div>
+
+    <div class="cpillar">
+      <div class="cp-row"><div class="cp-dot" style="background:var(--green)"></div><div class="cp-title">Educação posicionada</div><div class="cp-freq">1× / semana</div><div class="cp-arr">▶</div></div>
+      <div class="cp-detail">
+        <div class="dl-lbl">Objetivo</div><div class="dl-txt">Ensinar algo útil de um ângulo que só você tem — inteligência clínica aplicada ao produto digital.</div>
+        <div class="dl-lbl">Fórmula</div><div class="dl-txt"><em>[Conceito de design/UX]</em> + <em>[Por que é diferente aplicado à saúde]</em></div>
+        <div class="dl-lbl">Exemplos de gancho</div>
+        <div class="hook">"Hierarquia visual em apps de saúde não é estética — é segurança do paciente."</div>
+        <div class="hook">"3 erros de UX que só um médico percebe num aplicativo de prontuário."</div>
+        <div class="hook">"O que é design centrado no paciente — e por que é diferente do design centrado no usuário comum."</div>
+      </div>
+    </div>
+
+    <div class="cpillar">
+      <div class="cp-row"><div class="cp-dot" style="background:var(--amber)"></div><div class="cp-title">Identidade única</div><div class="cp-freq">1× / semana</div><div class="cp-arr">▶</div></div>
+      <div class="cp-detail">
+        <div class="dl-lbl">Objetivo</div><div class="dl-txt">Criar memória de marca. As pessoas compram de quem lembram. Sua história é o diferencial incopiável.</div>
+        <div class="dl-lbl">Fórmula</div><div class="dl-txt"><em>[Tensão ou paradoxo da sua história]</em> → <em>[A síntese que só você representa]</em></div>
+        <div class="dl-lbl">Exemplos de gancho</div>
+        <div class="hook">"Estudei medicina para entender como o corpo humano falha. Aprendi design para criar sistemas que não falham."</div>
+        <div class="hook">"Meus professores dizem que não posso ser médico e designer ao mesmo tempo. Meus clientes discordam."</div>
+        <div class="hook">"Vivo em dois mundos: anatomia de manhã, Figma de tarde. Este é o motivo."</div>
+      </div>
+    </div>
+
+    <div class="cpillar">
+      <div class="cp-row"><div class="cp-dot" style="background:var(--purple)"></div><div class="cp-title">CTA direto</div><div class="cp-freq">1× / semana</div><div class="cp-arr">▶</div></div>
+      <div class="cp-detail">
+        <div class="dl-lbl">Objetivo</div><div class="dl-txt">Converter seguidor em lead. Sem rodeio. Oferecer seus serviços é parte de criar valor para clínicas reais.</div>
+        <div class="dl-lbl">Fórmula</div><div class="dl-txt"><em>[Resultado que você entrega]</em> + <em>[Para quem é]</em> + <em>[Próximo passo claro]</em></div>
+        <div class="dl-lbl">Exemplos de gancho</div>
+        <div class="hook">"Se sua clínica tem um sistema digital que frustra os pacientes, posso te mostrar o que está errado — 30 min, sem custo. DM aberto."</div>
+        <div class="hook">"Estou abrindo 2 vagas para redesign de sistema de agendamento este mês. Dono de clínica: link na bio."</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="ctdot" style="background:var(--text)"></div>Regras inegociáveis</div>
+    <div class="rule-row"><div class="rule-n">01</div><div class="rule-t"><strong>Nunca fale para designers.</strong> Cada post deve fazer sentido para um dono de clínica que não sabe o que é Figma.</div></div>
+    <div class="rule-row"><div class="rule-n">02</div><div class="rule-t"><strong>A primeira linha é o único gancho.</strong> No feed, só aparece a primeira frase. Se ela não parar o scroll, o post não existe.</div></div>
+    <div class="rule-row"><div class="rule-n">03</div><div class="rule-t"><strong>Conecte design ao resultado clínico.</strong> Não é "interface bonita" — é "paciente que entende a dosagem".</div></div>
+    <div class="rule-row"><div class="rule-n">04</div><div class="rule-t"><strong>Mostre o rascunho, não só o resultado.</strong> Bastidores do processo criam mais confiança do que portfólios polidos.</div></div>
+    <div class="rule-row"><div class="rule-n">05</div><div class="rule-t"><strong>Reels têm prioridade no algoritmo.</strong> Pelo menos 3 dos 7 posts semanais devem ser vídeo curto.</div></div>
+  </div>
+
+  <div class="act-row">
+    <button class="btn-primary" onclick="copyOpen('Cria para mim os primeiros 9 posts completos com texto de legenda, gancho, hashtags e ideia visual para lançar o elienai.health — foco em atrair donos de clínicas e startups de saúde')">Gerar 9 posts de lançamento ↗</button>
+    <button class="btn-secondary" onclick="copyOpen('Me dá 10 ganchos prontos para posts do pilar Dor revelada voltados para donos de clínicas e startups de saúde no Brasil e Bolívia')">10 ganchos prontos ↗</button>
+    <button class="btn-secondary" onclick="copyOpen('Como fazer Reels de processo no Figma que atraiam clínicas e gestores de saúde — roteiro, o que mostrar na tela e como editar em 60 segundos')">Estratégia de Reels ↗</button>
+  </div>
+</div>
+
+<!-- ════ AGÊNCIA ════ -->
+<div class="section" id="s-agencia">
+  <div class="sec-head">
+    <div class="sec-eye">Pilar 3 — Agência médica</div>
+    <h1 class="sec-title">Agência de tech médica</h1>
+    <p class="sec-sub">Primeiro veículo de receita. Design e sistemas para clínicas e healthtechs — o que nenhuma agência genérica consegue entregar porque não tem médico no time.</p>
+  </div>
+
+  <div class="manifesto">
+    <p>Você não é uma agência de design que atende clínicas. Você é <strong>o único designer que também é médico</strong> — e isso muda completamente o que consegue entregar e quanto pode cobrar por isso.</p>
+  </div>
+
+  <div class="g3">
+    <div class="svc-card entry">
+      <div class="svc-n">Diagnóstico digital</div>
+      <div class="svc-price">$150–300</div>
+      <div class="svc-desc">Auditoria de presença digital e UX da clínica. Relatório com problemas identificados e recomendações claras.</div>
+      <ul class="svc-list">
+        <li>Análise do site ou app atual</li>
+        <li>Mapeamento da jornada do paciente</li>
+        <li>Relatório PDF com prioridades</li>
+        <li>1 reunião de apresentação (30 min)</li>
+      </ul>
+      <span class="badge b-green" style="margin-top:14px">Porta de entrada</span>
+    </div>
+    <div class="svc-card core">
+      <div class="svc-n">Design de sistema</div>
+      <div class="svc-price">$800–2.000</div>
+      <div class="svc-desc">Redesign de interface de agendamento, prontuário ou app clínico. Entrega em Figma com protótipo navegável.</div>
+      <ul class="svc-list">
+        <li>Pesquisa com usuários reais</li>
+        <li>Fluxo clínico mapeado</li>
+        <li>UI completa em Figma</li>
+        <li>Protótipo interativo navegável</li>
+      </ul>
+      <span class="badge b-blue" style="margin-top:14px">Serviço principal</span>
+    </div>
+    <div class="svc-card premium">
+      <div class="svc-n">Produto completo</div>
+      <div class="svc-price">$3.000+</div>
+      <div class="svc-desc">Da estratégia ao MVP: pesquisa, design, validação e entrega completa para startups de healthtech.</div>
+      <ul class="svc-list">
+        <li>Discovery e validação de produto</li>
+        <li>Design system completo</li>
+        <li>MVP testado com usuários</li>
+        <li>Acompanhamento de desenvolvimento</li>
+      </ul>
+      <span class="badge b-purple" style="margin-top:14px">Alta margem</span>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <div class="card-title"><div class="ctdot" style="background:var(--green)"></div>Como conseguir os primeiros clientes</div>
+    <div class="rule-row"><div class="rule-n">01</div><div class="rule-t"><strong>Começa pelo diagnóstico.</strong> Preço de entrada baixo — o objetivo é colocar o pé dentro da clínica. De 10 diagnósticos, 3 viram projetos maiores.</div></div>
+    <div class="rule-row"><div class="rule-n">02</div><div class="rule-t"><strong>Rede da faculdade.</strong> Seus professores e colegas têm clínicas e conhecem fundadores de startups. Canal mais quente que você tem agora.</div></div>
+    <div class="rule-row"><div class="rule-n">03</div><div class="rule-t"><strong>LinkedIn cirúrgico.</strong> 5 mensagens diretas por semana para donos de clínica. Não pitch — pergunta: "O que mais te frustra no seu sistema atual?"</div></div>
+    <div class="rule-row"><div class="rule-n">04</div><div class="rule-t"><strong>1 case gratuito no início.</strong> Pro bono estratégico — escolha um problema real com resultado mensurável. Vira portfólio e prova social.</div></div>
+  </div>
+
+  <div class="act-row">
+    <button class="btn-primary" onclick="copyOpen('Me ajuda a criar um script de abordagem no LinkedIn para donos de clínicas — sem parecer pitch de vendas, focado em entender a dor deles primeiro. Sou estudante de medicina e designer de healthtech em Santa Cruz de la Sierra, Bolívia')">Script de abordagem LinkedIn ↗</button>
+    <button class="btn-secondary" onclick="copyOpen('Cria um modelo de proposta comercial para uma clínica médica — serviço de diagnóstico digital com relatório de UX, incluindo formato, seções e linguagem certa para o contexto boliviano e brasileiro')">Modelo de proposta ↗</button>
+    <button class="btn-secondary" onclick="copyOpen('Como precificar serviços de design para clínicas médicas na América Latina — estratégia para mercado boliviano e brasileiro com valores realistas para estudante de medicina')">Estratégia de preço ↗</button>
+  </div>
+</div>
+
+<!-- ════ APP ════ -->
+<div class="section" id="s-app">
+  <div class="sec-head">
+    <div class="sec-eye">Pilar 4 — Produto próprio</div>
+    <h1 class="sec-title">ComprimiNdo</h1>
+    <p class="sec-sub">App de saúde familiar com IA. O ativo de longo prazo — construído em público, aos poucos, sem revelar o core antes da hora.</p>
+  </div>
+
+  <div class="manifesto">
+    <p>O ComprimiNdo não compete com a agência — <strong>eles se alimentam mutuamente</strong>. A agência te dá contatos no mercado médico, casos reais e dinheiro para investir no produto. O app constrói o império.</p>
+  </div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="card-title"><div class="ctdot" style="background:var(--amber)"></div>Visão do produto</div>
+      <div class="feat-row"><div class="feat-dot" style="background:var(--blue)"></div><div><div class="feat-t">Centralizar informações de saúde da família num só lugar</div></div></div>
+      <div class="feat-row"><div class="feat-dot" style="background:var(--blue)"></div><div><div class="feat-t">Traduzir bulas em linguagem acessível com IA</div></div></div>
+      <div class="feat-row"><div class="feat-dot" style="background:var(--blue)"></div><div><div class="feat-t">Gerenciar medicamentos, doses e horários</div></div></div>
+      <div class="feat-row"><div class="feat-dot" style="background:var(--blue)"></div><div><div class="feat-t">Alertar sobre interações medicamentosas perigosas</div></div></div>
+      <div class="feat-row"><div class="feat-dot" style="background:var(--blue)"></div><div><div class="feat-t">Preparar consultas com histórico organizado</div></div></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><div class="ctdot" style="background:var(--amber)"></div>MVP — Features por prioridade</div>
+      <div class="feat-row"><div class="feat-dot" style="background:var(--green)"></div><div><div class="feat-t">Perfis de saúde familiar</div><div class="feat-note">Core — sem isso não existe produto</div></div></div>
+      <div class="feat-row"><div class="feat-dot" style="background:var(--green)"></div><div><div class="feat-t">Cadastro e gestão de medicamentos</div><div class="feat-note">Core — proposta de valor principal</div></div></div>
+      <div class="feat-row"><div class="feat-dot" style="background:var(--blue)"></div><div><div class="feat-t">Tradução de bula com IA</div><div class="feat-note">Diferencial — implementar após core</div></div></div>
+      <div class="feat-row"><div class="feat-dot" style="background:var(--blue)"></div><div><div class="feat-t">Alertas de dose e horário</div><div class="feat-note">Diferencial — crítico para adesão</div></div></div>
+      <div class="feat-row"><div class="feat-dot" style="background:var(--amber)"></div><div><div class="feat-t">Detecção de interações medicamentosas</div><div class="feat-note">V2 — alto impacto, alta complexidade</div></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="ctdot" style="background:var(--purple)"></div>Regras de construção em público</div>
+    <div class="rule-row"><div class="rule-n">01</div><div class="rule-t"><strong>Mostre o processo, não o produto.</strong> Telas do Figma, decisões de design, aprendizados — mas não o fluxo completo ainda.</div></div>
+    <div class="rule-row"><div class="rule-n">02</div><div class="rule-t"><strong>Valide antes de construir.</strong> Cada feature deve ser testada com 5 usuários reais antes de ir para desenvolvimento.</div></div>
+    <div class="rule-row"><div class="rule-n">03</div><div class="rule-t"><strong>O nome é proteção suficiente.</strong> Ideia copiada sem execução não vale nada. Quem copia não tem seu contexto médico.</div></div>
+    <div class="rule-row"><div class="rule-n">04</div><div class="rule-t"><strong>Agência primeiro, app depois.</strong> Enquanto não tiver receita da agência, o ComprimiNdo fica em design e validação — não em desenvolvimento.</div></div>
+  </div>
+
+  <div class="act-row">
+    <button class="btn-primary" onclick="copyOpen('Me ajuda a mapear o fluxo completo do ComprimiNdo — do onboarding até o uso diário de gestão de medicamentos para saúde familiar, com todas as telas necessárias para o MVP')">Mapear fluxo do MVP ↗</button>
+    <button class="btn-secondary" onclick="copyOpen('Como validar um app de saúde familiar com usuários reais antes de construir — roteiro de pesquisa com 5 pessoas, perguntas certas e o que observar')">Roteiro de validação ↗</button>
+    <button class="btn-secondary" onclick="copyOpen('Analisa o mercado de apps de saúde familiar no Brasil e Bolívia — principais players, gaps de mercado e onde o ComprimiNdo pode se diferenciar')">Análise de mercado ↗</button>
+  </div>
+</div>
+
+<!-- ════ CONHECIMENTO ════ -->
+<div class="section" id="s-conhecimento">
+  <div class="sec-head">
+    <div class="sec-eye">Pilar 2 — Conhecimento</div>
+    <h1 class="sec-title">Plano de estudos</h1>
+    <p class="sec-sub">Sua vantagem competitiva é a combinação de medicina + design + tech. Nenhuma das três áreas isolada te diferencia — as três juntas são únicas.</p>
+  </div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="card-title"><div class="ctdot" style="background:var(--blue)"></div>UI/UX Design</div>
+      <div class="feat-row"><div class="feat-dot" style="background:var(--green)"></div><div><div class="feat-t">Figma — componentes, auto layout, variables</div><div class="feat-note">Em uso — aprofundar em design systems</div></div></div>
+      <div class="feat-row"><div class="feat-dot" style="background:var(--blue)"></div><div><div class="feat-t">Framer — animação e build para web</div><div class="feat-note">Workshop em andamento</div></div></div>
+      <div class="feat-row"><div class="feat-dot" style="background:var(--blue)"></div><div><div class="feat-t">Pesquisa com usuários e testes de usabilidade</div><div class="feat-note">Estudar Nielsen Norman Group</div></div></div>
+      <div class="feat-row"><div class="feat-dot" style="background:var(--amber)"></div><div><div class="feat-t">Design systems para saúde</div><div class="feat-note">Referência: Carbon Design System (IBM Health)</div></div></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><div class="ctdot" style="background:var(--green)"></div>Healthtech</div>
+      <div class="feat-row"><div class="feat-dot" style="background:var(--blue)"></div><div><div class="feat-t">Regulação de software médico (FDA, ANVISA)</div><div class="feat-note">Crucial para produtos sérios</div></div></div>
+      <div class="feat-row"><div class="feat-dot" style="background:var(--blue)"></div><div><div class="feat-t">Interoperabilidade: HL7, FHIR, LGPD</div><div class="feat-note">Padrões que todo healthtech precisa</div></div></div>
+      <div class="feat-row"><div class="feat-dot" style="background:var(--amber)"></div><div><div class="feat-t">IA aplicada à saúde — LLMs para clínica</div><div class="feat-note">Tendência central — estudar casos reais</div></div></div>
+      <div class="feat-row"><div class="feat-dot" style="background:var(--amber)"></div><div><div class="feat-t">Gestão de produtos digitais em saúde</div><div class="feat-note">Referência: Rock Health, a16z Healthcare</div></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="ctdot" style="background:var(--purple)"></div>Rotina semanal de aprendizado</div>
+    <div class="rule-row"><div class="rule-n">2h</div><div class="rule-t"><strong>Figma / Framer</strong> — prática no projeto real (ComprimiNdo ou case de agência). Aprende fazendo.</div></div>
+    <div class="rule-row"><div class="rule-n">1h</div><div class="rule-t"><strong>Conteúdo de healthtech</strong> — podcast, artigo ou curso. Rock Health, CB Insights Health, a16z Healthcare.</div></div>
+    <div class="rule-row"><div class="rule-n">1h</div><div class="rule-t"><strong>Portfólio e cases</strong> — documentar cada projeto com processo, decisão e resultado. Vira conteúdo de Instagram também.</div></div>
+    <div class="rule-row"><div class="rule-n">30m</div><div class="rule-t"><strong>Benchmark semanal</strong> — 3 apps de saúde por semana. O que funciona, o que falha, por que.</div></div>
+  </div>
+
+  <div class="act-row">
+    <button class="btn-primary" onclick="copyOpen('Monte um plano de estudos de UI/UX e healthtech para os próximos 6 meses sendo estudante de medicina — com recursos concretos, cronograma semanal e o que priorizar para construir uma agência e um app de saúde')">Plano de estudos 6 meses ↗</button>
+    <button class="btn-secondary" onclick="copyOpen('Quais são os melhores recursos para aprender sobre design de produtos de saúde — cursos, livros, comunidades, designers de referência em healthtech')">Melhores recursos healthtech ↗</button>
+  </div>
+</div>
+
+<!-- ════ PROMPTS ════ -->
+<div class="section" id="s-prompts">
+  <div class="sec-head">
+    <div class="sec-eye">Ferramentas</div>
+    <h1 class="sec-title">Biblioteca de prompts</h1>
+    <p class="sec-sub">Clique em qualquer prompt para copiar automaticamente e abrir o Claude. Use como ponto de partida — adapte conforme o contexto do dia.</p>
+  </div>
+
+  <div class="pcat">
+    <div class="pcat-ttl">Marca digital — Instagram</div>
+    <div class="prompt-item" data-p="Cria para mim os primeiros 9 posts completos com texto de legenda, gancho, hashtags e ideia visual para lançar o elienai.health — foco em atrair donos de clínicas e startups de saúde"><div class="prompt-txt">Criar os 9 posts de lançamento do elienai.health completos</div><span class="prompt-btn">Copiar + abrir ↗</span></div>
+    <div class="prompt-item" data-p="Me dá 10 ganchos prontos para posts do pilar Dor revelada voltados para donos de clínicas e startups de saúde no Brasil e Bolívia"><div class="prompt-txt">10 ganchos prontos para o pilar "Dor revelada"</div><span class="prompt-btn">Copiar + abrir ↗</span></div>
+    <div class="prompt-item" data-p="Como fazer Reels de processo no Figma que atraiam clínicas e gestores de saúde — roteiro, o que mostrar na tela, duração ideal e como editar em 60 segundos"><div class="prompt-txt">Estratégia de Reels mostrando processo no Figma</div><span class="prompt-btn">Copiar + abrir ↗</span></div>
+    <div class="prompt-item" data-p="Escreve uma bio otimizada para o Instagram elienai.health que atraia donos de clínicas e fundadores de startups de saúde — máximo 150 caracteres, sem usar a palavra médico"><div class="prompt-txt">Bio do Instagram para clínicas e healthtech (sem usar 'médico')</div><span class="prompt-btn">Copiar + abrir ↗</span></div>
+    <div class="prompt-item" data-p="Cria um carrossel completo sobre: 3 erros de UX que só um médico percebe num aplicativo de saúde — título, subtítulo de cada slide, copy e CTA final para donos de clínica"><div class="prompt-txt">Carrossel: "3 erros de UX que só um médico percebe"</div><span class="prompt-btn">Copiar + abrir ↗</span></div>
+  </div>
+
+  <div class="pcat">
+    <div class="pcat-ttl">Agência médica</div>
+    <div class="prompt-item" data-p="Me ajuda a criar um script de abordagem no LinkedIn para donos de clínicas — sem parecer pitch de vendas, focado em entender a dor deles primeiro. Sou estudante de medicina e designer de healthtech em Santa Cruz de la Sierra, Bolívia"><div class="prompt-txt">Script de abordagem no LinkedIn para donos de clínicas</div><span class="prompt-btn">Copiar + abrir ↗</span></div>
+    <div class="prompt-item" data-p="Como precificar serviços de design para clínicas médicas na América Latina — estratégia para mercado boliviano e brasileiro com valores realistas para estudante de medicina começando agora"><div class="prompt-txt">Como precificar serviços para o mercado boliviano e brasileiro</div><span class="prompt-btn">Copiar + abrir ↗</span></div>
+    <div class="prompt-item" data-p="Cria um modelo de proposta comercial para uma clínica médica — serviço de diagnóstico digital com relatório de UX, incluindo formato, seções e linguagem certa para um cliente que não entende de design"><div class="prompt-txt">Modelo de proposta comercial para clínica médica</div><span class="prompt-btn">Copiar + abrir ↗</span></div>
+    <div class="prompt-item" data-p="Quais são os principais problemas de UX e design em sistemas de saúde digitais no Brasil e Bolívia que posso resolver como agência de healthtech design começando agora"><div class="prompt-txt">Principais dores de UX em sistemas de saúde — mercado LatAm</div><span class="prompt-btn">Copiar + abrir ↗</span></div>
+  </div>
+
+  <div class="pcat">
+    <div class="pcat-ttl">ComprimiNdo</div>
+    <div class="prompt-item" data-p="Me ajuda a mapear o fluxo completo do ComprimiNdo — do onboarding até o uso diário de gestão de medicamentos para saúde familiar, com todas as telas necessárias para o MVP"><div class="prompt-txt">Mapear fluxo completo do ComprimiNdo</div><span class="prompt-btn">Copiar + abrir ↗</span></div>
+    <div class="prompt-item" data-p="Como validar um app de saúde familiar com usuários reais antes de construir — roteiro de pesquisa com 5 pessoas, perguntas certas e o que observar para confirmar o problema"><div class="prompt-txt">Roteiro de validação com 5 usuários reais</div><span class="prompt-btn">Copiar + abrir ↗</span></div>
+    <div class="prompt-item" data-p="Analisa o mercado de apps de saúde familiar no Brasil e Bolívia — principais players, gaps de mercado e onde o ComprimiNdo pode se diferenciar com foco em gestão de medicamentos e IA"><div class="prompt-txt">Análise de mercado — apps de saúde familiar LatAm</div><span class="prompt-btn">Copiar + abrir ↗</span></div>
+    <div class="prompt-item" data-p="Cria um design system básico para o ComprimiNdo — paleta de cores, tipografia, componentes principais e princípios de design para app de saúde familiar com foco em acessibilidade"><div class="prompt-txt">Design system básico para o ComprimiNdo</div><span class="prompt-btn">Copiar + abrir ↗</span></div>
+  </div>
+
+  <div class="pcat">
+    <div class="pcat-ttl">Conhecimento e crescimento</div>
+    <div class="prompt-item" data-p="Monte um plano de estudos de UI/UX e healthtech para os próximos 6 meses sendo estudante de medicina em tempo parcial — recursos concretos, cronograma semanal e o que priorizar"><div class="prompt-txt">Plano de estudos UI/UX + healthtech — 6 meses</div><span class="prompt-btn">Copiar + abrir ↗</span></div>
+    <div class="prompt-item" data-p="Como construir um portfólio de design focado em healthtech que convença clínicas e startups de saúde — o que incluir, como apresentar casos sem revelar dados sensíveis e onde publicar"><div class="prompt-txt">Como construir portfólio focado em healthtech</div><span class="prompt-btn">Copiar + abrir ↗</span></div>
+    <div class="prompt-item" data-p="Quais são os melhores recursos gratuitos e pagos para aprender sobre design de produtos de saúde — cursos, livros, comunidades, designers de referência em healthtech no contexto latino-americano"><div class="prompt-txt">Melhores recursos para health product design</div><span class="prompt-btn">Copiar + abrir ↗</span></div>
+  </div>
+
+  <div class="pcat">
+    <div class="pcat-ttl">Visão e estratégia</div>
+    <div class="prompt-item" data-p="Quero entrar fundo na fase 1 da minha jornada como health designer — me mostre o que precisa acontecer mês a mês nos primeiros 6 meses para construir marca, conseguir os primeiros clientes para a agência e avançar o ComprimiNdo"><div class="prompt-txt">Plano detalhado mês a mês — Fase 1 (6 meses)</div><span class="prompt-btn">Copiar + abrir ↗</span></div>
+    <div class="prompt-item" data-p="Como monetizar meu conhecimento de design e medicina antes de terminar a faculdade — estratégias práticas para começar a gerar receita nos próximos 3 meses como health designer em Santa Cruz de la Sierra"><div class="prompt-txt">Como monetizar antes de se formar — próximos 3 meses</div><span class="prompt-btn">Copiar + abrir ↗</span></div>
+    <div class="prompt-item" data-p="Me ajuda a redesenhar minha identidade visual pessoal para o posicionamento health designer — logo com Syne Bold, paleta de cores, tipografia e como aplicar no Instagram e portfólio web"><div class="prompt-txt">Redesenhar identidade visual para health designer</div><span class="prompt-btn">Copiar + abrir ↗</span></div>
+  </div>
+</div>
+
+<!-- ════ NOTAS ════ -->
+<div class="section" id="s-notas">
+  <div class="sec-head">
+    <div class="sec-eye">Ferramentas</div>
+    <h1 class="sec-title">Notas</h1>
+    <p class="sec-sub">Espaço livre para anotações, ideias e próximos passos. Salvo automaticamente no navegador.</p>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div class="card-title"><div class="ctdot" style="background:var(--blue)"></div>Ideias de conteúdo</div>
+      <textarea class="notes-area" id="n-content" placeholder="Anote ideias de posts, ganchos, temas..." style="min-height:120px"></textarea>
+    </div>
+    <div class="card">
+      <div class="card-title"><div class="ctdot" style="background:var(--green)"></div>Potenciais clientes</div>
+      <textarea class="notes-area" id="n-clients" placeholder="Clínicas e contatos para abordar..." style="min-height:120px"></textarea>
+    </div>
+    <div class="card">
+      <div class="card-title"><div class="ctdot" style="background:var(--amber)"></div>ComprimiNdo — decisões</div>
+      <textarea class="notes-area" id="n-app" placeholder="Decisões de produto, features, feedbacks..." style="min-height:120px"></textarea>
+    </div>
+    <div class="card">
+      <div class="card-title"><div class="ctdot" style="background:var(--purple)"></div>Livre</div>
+      <textarea class="notes-area" id="n-free" placeholder="Qualquer coisa..." style="min-height:120px"></textarea>
+    </div>
+  </div>
+</div>
+
+</main>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">Prompt copiado — abrindo Claude...</div>
+
+<script>
+// ── NAVIGATION ──
+document.querySelectorAll('.nav-item').forEach(btn => {
+  btn.addEventListener('click', () => go(btn.dataset.target));
+});
+
+function go(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const sec = document.getElementById('s-' + id);
+  if (sec) sec.classList.add('active');
+  const btn = document.querySelector(`.nav-item[data-target="${id}"]`);
+  if (btn) btn.classList.add('active');
+  document.querySelector('.main').scrollTo(0, 0);
+}
+
+// ── CONTENT PILLARS TOGGLE ──
+document.querySelectorAll('.cpillar').forEach(p => {
+  p.addEventListener('click', () => p.classList.toggle('open'));
+});
+
+// ── TASKS ──
+function toggleTask(el) {
+  el.classList.toggle('done');
+  saveTasks();
+}
+function saveTasks() {
+  const state = {};
+  document.querySelectorAll('.task-item[data-id]').forEach(t => {
+    state[t.dataset.id] = t.classList.contains('done');
+  });
+  try { localStorage.setItem('elienai_tasks', JSON.stringify(state)); } catch(e){}
+}
+function loadTasks() {
+  try {
+    const s = JSON.parse(localStorage.getItem('elienai_tasks') || '{}');
+    Object.entries(s).forEach(([id, done]) => {
+      const el = document.querySelector(`[data-id="${id}"]`);
+      if (el && done) el.classList.add('done');
+    });
+  } catch(e){}
+}
+
+// ── PROMPT ITEMS ──
+document.querySelectorAll('.prompt-item').forEach(item => {
+  item.addEventListener('click', () => copyOpen(item.dataset.p));
+});
+
+// ── COPY + OPEN ──
+function copyOpen(text) {
+  if (!text) return;
+  navigator.clipboard.writeText(text).then(() => {
+    showToast('Copiado! Cole no Claude ↗');
+    setTimeout(() => window.open('https://claude.ai', '_blank'), 350);
+  }).catch(() => {
+    showToast('Abrindo Claude...');
+    window.open('https://claude.ai', '_blank');
+  });
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ── NOTES PERSISTENCE ──
+const noteIds = ['n-content', 'n-clients', 'n-app', 'n-free'];
+function saveNotes() {
+  noteIds.forEach(id => {
+    try { localStorage.setItem('elienai_' + id, document.getElementById(id)?.value || ''); } catch(e){}
+  });
+}
+function loadNotes() {
+  noteIds.forEach(id => {
+    try {
+      const val = localStorage.getItem('elienai_' + id);
+      if (val && document.getElementById(id)) document.getElementById(id).value = val;
+    } catch(e){}
+  });
+}
+noteIds.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('input', saveNotes);
+});
+
+// ── DATE ──
+const d = new Date();
+document.getElementById('current-date').textContent = d.toLocaleDateString('pt-BR', { day:'2-digit', month:'short', year:'numeric' });
+
+// ── INIT ──
+loadTasks();
+loadNotes();
+</script>
+</body>
+</html>
