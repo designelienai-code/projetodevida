@@ -1,0 +1,88 @@
+{
+  "referencias": [
+    {
+      "numero": 1,
+      "pmid": "41607159",
+      "doi": "10.24425/fmc.2025.156697",
+      "autores": "Grandys M, Woźniak M, Żołádź JA",
+      "titulo": "The slowing pulse: a history of research on training-induced resting bradycardia",
+      "revista": "Folia Med Cracov",
+      "ano": 2025,
+      "volumen": "65",
+      "numero_revista": "4",
+      "paginas": "43-52"
+    },
+    {
+      "numero": 2,
+      "pmid": "41410046",
+      "doi": "10.1161/CIRCULATIONAHA.125.076170",
+      "autores": "D'Ambrosio P, De Paepe J, Spencer LW",
+      "titulo": "Bradycardia in Athletes: Prevalence, Mechanisms, and Risks",
+      "revista": "Circulation",
+      "ano": 2026,
+      "volumen": "153",
+      "numero_revista": "9",
+      "paginas": "616-630"
+    },
+    {
+      "numero": 3,
+      "pmid": "39852621",
+      "doi": "10.3390/sports13010025",
+      "autores": "Climstein M, Graham KS, Stapelberg M",
+      "titulo": "Electrocardiographic Assessment of National-Level Triathletes: Sinus Bradycardia and Other Electrocardiographic Abnormalities",
+      "revista": "Sports (Basel)",
+      "ano": 2025,
+      "volumen": "13",
+      "numero_revista": "1",
+      "paginas": ""
+    },
+    {
+      "numero": 4,
+      "pmid": "40673786",
+      "doi": "10.23736/S0022-4707.25.16710-8",
+      "autores": "Tan L, Kwanmuangwanic P",
+      "titulo": "Effects of tennis exercise of different intensities on cardiorespiratory capacity and mental health of sedentary students",
+      "revista": "J Sports Med Phys Fitness",
+      "ano": 2025,
+      "volumen": "65",
+      "numero_revista": "10",
+      "paginas": "1286-1295"
+    },
+    {
+      "numero": 5,
+      "pmid": "39106380",
+      "doi": "10.36740/WLek202406113",
+      "autores": "Novytskyi YV, Syrovatko ZV, Kozlova TH",
+      "titulo": "Health-improving effect of running for students of technical specialties",
+      "revista": "Wiad Lek",
+      "ano": 2024,
+      "volumen": "77",
+      "numero_revista": "6",
+      "paginas": "1198-1204"
+    },
+    {
+      "numero": 6,
+      "pmid": "37891510",
+      "doi": "10.1186/s12889-023-17022-7",
+      "autores": "Moazzeni SS, Karimi Toudeshki K, Ghorbanpouryami F",
+      "titulo": "Resting heart rate and the risk of incident type 2 diabetes mellitus among non-diabetic and prediabetic Iranian adults: Tehran lipid and glucose study",
+      "revista": "BMC Public Health",
+      "ano": 2023,
+      "volumen": "23",
+      "numero_revista": "1",
+      "paginas": "2112"
+    },
+    {
+      "numero": 7,
+      "pmid": "38887616",
+      "doi": "10.7717/peerj.17525",
+      "autores": "Al-Mhanna SB, Batrakoulis A, Wan Ghazali WS",
+      "titulo": "Effects of combined aerobic and resistance training on glycemic control, blood pressure, inflammation",
+      "revista": "PeerJ",
+      "ano": 2024,
+      "volumen": "12",
+      "numero_revista": "",
+      "paginas": "e17525"
+    }
+  ]
+}

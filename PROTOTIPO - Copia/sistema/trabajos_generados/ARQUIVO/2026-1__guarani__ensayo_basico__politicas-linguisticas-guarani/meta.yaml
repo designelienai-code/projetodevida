@@ -1,0 +1,55 @@
+modelo: ensayo_basico
+codigo_uce: INV-00
+fecha_generacion: "2026-05-12"
+
+cabecero:
+  titulo: "POLÍTICAS LINGÜÍSTICAS Y SOCIEDAD GUARANÍ: DERECHOS, REVITALIZACIÓN Y DESAFÍOS EN EL ESTADO PLURINACIONAL DE BOLIVIA"
+  autores:
+    - nombre: Daniela Flores Valverde
+      registro: "76911"
+    - nombre: Araendy Rodríguez Bravo
+      registro: "76998"
+    - nombre: Gabriela Zamora Saire
+      registro: "77094"
+    - nombre: Velika Qorianka Chapiama Reyna
+      registro: "77097"
+    - nombre: Carlos Eduardo Mendieta
+      registro: "77099"
+    - nombre: Álvaro Condori Ruiz
+      registro: "774952026"
+    - nombre: María Fernanda Támara Uchasara
+      registro: "77650"
+    - nombre: Valentina Hinojosa Gutiérrez
+      registro: "74741"
+  docente: "Lic. Tali Pinto Cuellar"
+  asignatura: Guaraní
+  semestre: "Gestión I"
+  ano: "2026"
+  carrera: Medicina
+  grupo: ""
+
+secciones:
+  introduccion:
+    palabras: 146
+    citas: [1, 3]
+    revision: APROBADO
+    correcciones: ninguna
+
+  desarrollo:
+    palabras: 252
+    citas: [2, 4, 5]
+    revision: APROBADO
+    correcciones: ninguna
+
+  conclusion:
+    palabras: 122
+    citas: []
+    revision: APROBADO (con corrección)
+    correcciones:
+      - original: "un avance normativo indiscutible"
+        corregido: "un avance normativo relevante"
+        razon: intensificador vacío sustituido por valoración calibrada
+
+total_palabras_contenido: 520
+total_citas: 5
+referencias_totales: 5

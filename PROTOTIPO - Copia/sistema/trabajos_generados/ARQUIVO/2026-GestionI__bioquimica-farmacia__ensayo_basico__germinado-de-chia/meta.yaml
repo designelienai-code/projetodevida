@@ -1,0 +1,63 @@
+modelo: ensayo_basico
+codigo_uce: INV-00
+ano: 2026
+gestion: I
+asignatura: Bioquímica y Farmacia
+docente: Lic. Gonsales Meneses Benjamin Ariel
+grupo: B1
+carrera: Medicina
+autor: Portilla Amachi Ruth Maricielo
+tema: Germinado de chía (Salvia hispanica L.) — proceso bioquímico desde la siembra
+titulo: "GERMINADO DE CHÍA: PROCESO BIOQUÍMICO DEL CRECIMIENTO DESDE LA SIEMBRA"
+prompt_autor: "El proceso de cómo crece la chía, desde el momento en que la plantas, con enfoque bioquímico."
+
+cabecero_completo: false
+campos_pendientes:
+  - semestre   # marcado <PENDIENTE> en trabajo.md
+
+secciones:
+  introduccion:
+    palabras: 169
+    rango: [100, 200]
+    citas_usadas: [1, 2]
+    aprobado_por_revisor: true
+    correcciones_aplicadas:
+      - "alucinacion: 'proteólisis de globulinas' -> 'proteólisis de proteínas de reserva'"
+      - "ia: 'Estudios complementarios señalan' -> 'Huang y col. reportan'"
+      - "ia: 'resulta pertinente' -> 'es pertinente'"
+  desarrollo:
+    palabras: 274
+    rango: [200, 300]
+    parrafos: 3
+    rango_parrafos: [2, 3]
+    citas_usadas: [1, 3, 4]
+    aprobado_por_revisor: true
+    correcciones_aplicadas:
+      - "alucinacion: 'endospermo' -> 'cotiledones' (Salvia hispanica almacena en cotiledones, no endospermo)"
+      - "alucinacion: atribución de lipasas/TAGs/glioxilato a Labat -> separar atribución de explicación textbook"
+      - "ia: 'remodelación molecular significativa' -> 'remodelación profunda del perfil de proteínas de reserva y de lípidos'"
+  conclusion:
+    palabras: 132
+    rango: [100, 150]
+    citas_usadas: []
+    incluir_opinion_autor: true
+    aprobado_por_revisor: true
+    correcciones_aplicadas: []
+  referencias:
+    formato: vancouver
+    total: 4
+
+total_palabras_cuerpo: 575
+rango_objetivo: [400, 650]
+dentro_rango: true
+
+validacion_global:
+  todos_placeholders_sustituidos: parcial   # semestre queda pendiente
+  marcadores_generar_vacios: false
+  todas_citas_tienen_entrada_referencias: true
+  todas_referencias_aparecen_citadas: true
+  referencias_verificadas_doi_pmid: true
+  coherencia_titulo_objetivo: na   # ensayo no tiene objetivo formal
+  cero_em_dashes: true
+  cero_matches_lista_negra: true
+  pipeline_redactor_revisor_completo: true

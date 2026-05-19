@@ -1,0 +1,60 @@
+{
+  "referencias": [
+    {
+      "numero": 1,
+      "autores": ["Gustafson B"],
+      "titulo": "Oppressed no more? Indigenous language regimentation in plurinational Bolivia",
+      "revista": "Int J Sociol Lang",
+      "anio": 2017,
+      "volumen": "2017",
+      "numero_revista": "246",
+      "paginas": "31-57",
+      "doi": "10.1515/ijsl-2017-0012"
+    },
+    {
+      "numero": 2,
+      "autores": ["Ravindran T"],
+      "titulo": "Language revitalization as a postponed aspiration: anti-essentialist ethnolinguistic identity among Aymaras in Bolivia",
+      "revista": "Int J Sociol Lang",
+      "anio": 2024,
+      "volumen": "2024",
+      "numero_revista": "287",
+      "paginas": "",
+      "doi": "10.1515/ijsl-2023-0006"
+    },
+    {
+      "numero": 3,
+      "autores": ["Añaños Bedriñana KG", "Hernández Umaña BA", "Rodríguez Martín JA"],
+      "titulo": "\"Living Well\" in the Constitution of Bolivia and the American Declaration on the Rights of Indigenous Peoples: Reflections on Well-Being and the Right to Development",
+      "revista": "Int J Environ Res Public Health",
+      "anio": 2020,
+      "volumen": "17",
+      "numero_revista": "8",
+      "paginas": "2870",
+      "doi": "10.3390/ijerph17082870",
+      "pmid": "32326327"
+    },
+    {
+      "numero": 4,
+      "autores": ["Boyer H"],
+      "titulo": "Identidad etnosociolingüística y política lingüística. A propósito del Paraguay contemporáneo",
+      "revista": "Glosema Rev Astur Llinguística",
+      "anio": 2021,
+      "volumen": "1",
+      "numero_revista": "",
+      "paginas": "41-51",
+      "doi": "10.17811/glosema.1.2019.41-51"
+    },
+    {
+      "numero": 5,
+      "autores": ["Nickson RA"],
+      "titulo": "Governance and the Revitalization of the Guaraní Language in Paraguay",
+      "revista": "Lat Am Res Rev",
+      "anio": 2009,
+      "volumen": "44",
+      "numero_revista": "3",
+      "paginas": "3-26",
+      "doi": "10.1353/lar.0.0115"
+    }
+  ]
+}

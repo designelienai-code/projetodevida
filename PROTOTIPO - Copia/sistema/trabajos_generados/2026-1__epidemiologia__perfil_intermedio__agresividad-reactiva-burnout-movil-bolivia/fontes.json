@@ -1,0 +1,65 @@
+{
+  "total": 5,
+  "referencias": [
+    {
+      "numero": 1,
+      "pmid": "36138339",
+      "doi": "10.1177/13591045221127886",
+      "autores": "Messena M, Everri M",
+      "titulo": "Unpacking the relation between children's use of digital technologies and children's well-being: A scoping review",
+      "revista": "Clin Child Psychol Psychiatry",
+      "ano": 2023,
+      "volumen": "28",
+      "numero_revista": "1",
+      "paginas": "161-198"
+    },
+    {
+      "numero": 2,
+      "pmid": "42072891",
+      "doi": "10.3390/healthcare14080990",
+      "autores": "Kwak M, Bae E, Choi W, Lim MH",
+      "titulo": "The Effects of Anxiety and Self-Control on Smartphone Addiction Among Children and Adolescents at Risk for Depression",
+      "revista": "Healthcare (Basel)",
+      "ano": 2026,
+      "volumen": "14",
+      "numero_revista": "8",
+      "paginas": "990"
+    },
+    {
+      "numero": 3,
+      "pmid": "34963368",
+      "doi": "10.1177/15248399211064640",
+      "autores": "Zenone M, Kenworthy N, Barbic S",
+      "titulo": "The Paradoxical Relationship Between Health Promotion and the Social Media Industry",
+      "revista": "Health Promot Pract",
+      "ano": 2023,
+      "volumen": "24",
+      "numero_revista": "3",
+      "paginas": "571-574"
+    },
+    {
+      "numero": 4,
+      "pmid": "40246585",
+      "doi": "10.1136/bmjpo-2024-003135",
+      "autores": "Prkno D, Grafe N, Schulz MS, Kiess W, Poulain T",
+      "titulo": "Children's and adolescents' negative internet experiences and the association with quality of life and behavioural difficulties: a cross-sectional study",
+      "revista": "BMJ Paediatr Open",
+      "ano": 2025,
+      "volumen": "9",
+      "numero_revista": "1",
+      "paginas": "e003135"
+    },
+    {
+      "numero": 5,
+      "pmid": "35945851",
+      "doi": "10.33314/jnhrc.v20i01.3737",
+      "autores": "Joshi A, Sharma K, Sigdel D, Thapa T, Mehta R",
+      "titulo": "Internet Gaming Disorder and Aggression among Students on School Closure during COVID-19 Pandemic",
+      "revista": "J Nepal Health Res Counc",
+      "ano": 2022,
+      "volumen": "20",
+      "numero_revista": "1",
+      "paginas": "41-46"
+    }
+  ]
+}

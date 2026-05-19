@@ -1,0 +1,69 @@
+id: ensayo_basico
+codigo_uce: INV-00
+nombre: Ensayo Académico
+ano_curricular: 1er año
+descripcion: |
+  Ensayo académico breve (máximo 2 páginas de contenido + 1 carátula).
+  Estilo expositivo, prosa, citaciones Vancouver numeradas.
+total_palabras_objetivo: [400, 650]   # rango total contenido
+paginas_contenido_max: 2
+
+carrera_fija: Medicina   # nunca preguntar, siempre Medicina
+
+header_fields:
+  - id: titulo
+    label: "Título del trabajo (mayúsculas, <21 palabras)"
+    transform: upper
+    max_palabras: 21
+    requerido: true
+  - id: asignatura
+    label: "Asignatura/Materia"
+    requerido: true
+  - id: ano
+    label: "Año"
+    default: "2026"
+    requerido: true
+
+secciones:
+  - id: introduccion
+    titulo: INTRODUCCIÓN
+    parrafos: 1
+    palabras: [100, 200]
+    citas_min: 1
+    citas_max: 2
+    incluir_opinion_autor: false
+    instrucciones: |
+      Un único párrafo. Estructurar internamente en 2 partes:
+      (a) ¿Qué se sabe? — datos a nivel mundial/Latinoamérica/país sobre el tema, hechos.
+      (b) ¿Qué no se sabe? Importancia — vacío de conocimiento + por qué importa discutir el tema.
+      NO escribir opinión del autor. Solo hechos. Citar entre 1-2 referencias Vancouver.
+
+  - id: desarrollo
+    titulo: DESARROLLO
+    parrafos: [2, 3]
+    palabras: [200, 300]
+    citas_min: 2
+    citas_max: 3
+    citas_por_parrafo: 1
+    incluir_opinion_autor: false
+    instrucciones: |
+      2-3 párrafos. Cada párrafo = hallazgos de UN artículo científico (preferentemente últimos 3 años).
+      Reportar evidencia con palabras propias. Una referencia Vancouver por párrafo.
+
+  - id: conclusion
+    titulo: CONCLUSIÓN
+    parrafos: 1
+    palabras: [100, 150]
+    citas_min: 0
+    citas_max: 0
+    incluir_opinion_autor: true
+    instrucciones: |
+      Un solo párrafo. SÍ incluye opinión/postura del autor sobre lo expuesto.
+      Síntesis de hallazgos + percepción del estudiante. SIN referencias bibliográficas.
+
+  - id: referencias
+    titulo: REFERENCIAS BIBLIOGRÁFICAS
+    formato: vancouver
+    instrucciones: |
+      Listar todas las citas usadas, en orden de aparición, formato Vancouver.
+      Formato: Autores (max 6, luego et al). Título. Abreviatura revista. Año;Vol(num):páginas.

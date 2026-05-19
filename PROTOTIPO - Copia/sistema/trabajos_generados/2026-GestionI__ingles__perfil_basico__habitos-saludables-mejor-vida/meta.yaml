@@ -1,0 +1,53 @@
+modelo: perfil_basico
+codigo_uce: INV-01
+ano: "2026"
+gestion: GestionI
+asignatura: Inglés
+carrera: Medicina
+titulo: HÁBITOS SALUDABLES PARA UNA MEJOR VIDA
+estudiante: Laryssa Oliveira Lima
+registro: "75383"
+grupo: H
+docente: Dr. Reina Anabelle Ovando Torrico
+poblacion_estudio: estudiantes de medicina de UCEBOL
+lugar_estudio: UCEBOL, Santa Cruz de la Sierra, Bolivia
+tipo_estudio: descriptivo
+
+secciones_log:
+  - id: introduccion_problema_justificacion
+    redactor: GENERADO
+    revisor: CORREGIDO
+    correcciones:
+      - tipo: alucinacion
+        original: "en cinco países de la región, entre ellos Bolivia"
+        accion: suprimido "entre ellos Bolivia" — dato sin respaldo en el abstract de la fuente (2)
+  - id: objetivo_general
+    redactor: GENERADO
+    revisor: APROBADO
+  - id: metodologia
+    redactor: GENERADO
+    revisor: CORREGIDO
+    correcciones:
+      - tipo: alucinacion
+        original: "aproximadamente 200 estudiantes"
+        accion: suprimido número sin fuente — reescrito como "los estudiantes matriculados"
+      - tipo: cita_invalida
+        original: "(5) Prats-Arimon — cuestionario estructurado"
+        accion: eliminada — fuente no valida el instrumento descrito
+  - id: conclusiones
+    redactor: GENERADO
+    revisor: APROBADO
+
+total_referencias: 4
+checklist_final:
+  placeholders_sustituidos: true
+  marcadores_generar_eliminados: true
+  citas_con_entrada_referencias: true
+  referencias_citadas_en_cuerpo: true
+  referencias_reales_verificadas: true
+  conteo_palabras_en_rango: true
+  coherencia_titulo_objetivo: true
+  sin_opinion_autor_en_secciones_prohibidas: true
+  anti_plagio: true
+  pipeline_agentes_completo: true
+  cero_em_dashes: true

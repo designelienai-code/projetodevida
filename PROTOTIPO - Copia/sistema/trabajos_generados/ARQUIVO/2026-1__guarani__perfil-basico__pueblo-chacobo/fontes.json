@@ -1,0 +1,66 @@
+{
+  "total": 5,
+  "fontes": [
+    {
+      "numero": 1,
+      "pmid": "29017576",
+      "doi": "10.1186/s13002-017-0179-2",
+      "autores": "Paniagua Zambrana NY, Bussmann RW, Hart RE",
+      "titulo": "Traditional knowledge hiding in plain sight - twenty-first century ethnobotany of the Chácobo in Beni, Bolivia",
+      "revista": "J Ethnobiol Ethnomed",
+      "ano": 2017,
+      "volume": "13",
+      "numero_revista": "1",
+      "paginas": "57",
+      "nota": "Excepción de antigüedad: único estudio directo sobre el pueblo Chacobo disponible en literatura indexada"
+    },
+    {
+      "numero": 2,
+      "pmid": "33573491",
+      "doi": "10.1080/17441692.2021.1882531",
+      "autores": "Martin MA, Gurven M",
+      "titulo": "Traditional and biomedical maternal and neonatal care practices in a rural Indigenous population of the Bolivian Amazon",
+      "revista": "Glob Public Health",
+      "ano": 2022,
+      "volume": "17",
+      "numero_revista": "6",
+      "paginas": "971-985"
+    },
+    {
+      "numero": 3,
+      "pmid": "36165503",
+      "doi": "10.1002/ajhb.23806",
+      "autores": "Rosinger AY, Rosinger K, Barnhart K",
+      "titulo": "When the flood passes, does health return? A short panel examining water and food insecurity, nutrition, and disease after an extreme flood in lowland Bolivia",
+      "revista": "Am J Hum Biol",
+      "ano": 2023,
+      "volume": "35",
+      "numero_revista": "1",
+      "paginas": "e23806"
+    },
+    {
+      "numero": 4,
+      "pmid": "35262289",
+      "doi": "10.1002/alz.12626",
+      "autores": "Gatz M, Mack WJ, Chui HC",
+      "titulo": "Prevalence of dementia and mild cognitive impairment in indigenous Bolivian forager-horticulturalists",
+      "revista": "Alzheimers Dement",
+      "ano": 2023,
+      "volume": "19",
+      "numero_revista": "1",
+      "paginas": "44-55"
+    },
+    {
+      "numero": 5,
+      "pmid": "41614317",
+      "doi": "10.1161/JAHA.125.043028",
+      "autores": "Barisano G, Bigjahan B, Schleifer G",
+      "titulo": "High Prevalence of Cerebrovascular Calcifications and Clinical Correlates in Indigenous Bolivian Forager-Horticulturalists",
+      "revista": "J Am Heart Assoc",
+      "ano": 2026,
+      "volume": "15",
+      "numero_revista": "3",
+      "paginas": "e043028"
+    }
+  ]
+}

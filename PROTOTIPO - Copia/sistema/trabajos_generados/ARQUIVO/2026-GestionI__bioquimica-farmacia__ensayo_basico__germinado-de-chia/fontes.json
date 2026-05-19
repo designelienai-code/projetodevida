@@ -1,0 +1,71 @@
+{
+  "fuentes_citadas": [
+    {
+      "n_cita": 1,
+      "autores": ["Labat V", "Louis-Mondésir C", "Hentati S", "Totozafy JC", "Collet B", "Gohon Y", "et al"],
+      "titulo": "Modifications in lipids and storage proteins composition during germination of chia seeds (Salvia hispanica L.)",
+      "revista": "Food Chem",
+      "ano": 2025,
+      "volumen": 489,
+      "paginas": "144682",
+      "doi": "10.1016/j.foodchem.2025.144682",
+      "pmid": "40570644"
+    },
+    {
+      "n_cita": 2,
+      "autores": ["Huang M", "Xu H", "Zhou Q", "Xiao J", "Su Y", "Wang M"],
+      "titulo": "The nutritional profile of chia seeds and sprouts: tailoring germination practices for enhancing health benefits, a comprehensive review",
+      "revista": "Crit Rev Food Sci Nutr",
+      "ano": 2025,
+      "volumen": 65,
+      "numero": 12,
+      "paginas": "2365-2387",
+      "doi": "10.1080/10408398.2024.2337220",
+      "pmid": "38622873"
+    },
+    {
+      "n_cita": 3,
+      "autores": ["Ang ME", "Cowley JM", "Yap K", "Hahn MG", "Mikkelsen D", "Tucker MR", "et al"],
+      "titulo": "Novel constituents of Salvia hispanica L. (chia) nutlet mucilage and the improved in vitro fermentation of nutlets when ground",
+      "revista": "Food Funct",
+      "ano": 2023,
+      "volumen": 14,
+      "numero": 3,
+      "paginas": "1401-1414",
+      "doi": "10.1039/d2fo03002k",
+      "pmid": "36637177"
+    },
+    {
+      "n_cita": 4,
+      "autores": ["Salgado VDSCN", "Zago L", "Fonseca END", "Calderari MRDCM", "Citelli M", "Miyahira RF"],
+      "titulo": "Chemical Composition, Fatty Acid Profile, Phenolic Compounds, and Antioxidant Activity of Raw and Germinated Chia (Salvia hispanica L.) Seeds",
+      "revista": "Plant Foods Hum Nutr",
+      "ano": 2023,
+      "volumen": 78,
+      "numero": 4,
+      "paginas": "735-741",
+      "doi": "10.1007/s11130-023-01115-0",
+      "pmid": "37856036"
+    }
+  ],
+  "fuentes_consideradas_no_citadas": [
+    {
+      "motivo": "no_necesaria_para_seccion",
+      "autores": ["Garcia SAH", "Yeung CR", "Yeung KL"],
+      "titulo": "Impact of silica nanoparticle size and concentration on the development, growth, health, and transpiration of Salvia hispanica",
+      "revista": "Chemosphere",
+      "ano": 2025,
+      "doi": "10.1016/j.chemosphere.2025.144511",
+      "pmid": "40499465"
+    },
+    {
+      "motivo": "no_necesaria_para_seccion",
+      "autores": ["Azzam CR", "Rizk MS", "Mostafa SSM", "et al"],
+      "titulo": "Characterization of two novel chia (Salvia hispanica L.) white and black genotypes via DNA barcoding, physiological, and agronomic traits",
+      "revista": "J Genet Eng Biotechnol",
+      "ano": 2025,
+      "doi": "10.1016/j.jgeb.2025.100545",
+      "pmid": "40854664"
+    }
+  ]
+}

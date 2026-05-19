@@ -1,0 +1,16 @@
+modelo: perfil_basico
+codigo_uce: INV-01
+generado: "2026-05-09"
+
+cabecero:
+  titulo: "CARACTERIZACIÓN DE LOS DETERMINANTES DE SALUD DEL PUEBLO ORIGINARIO CHACOBO, PROVINCIA VACA DÍEZ, BENI, BOLIVIA, 2026"
+  autor: "___________________________"
+  docente: "___________________________"
+  asignatura: Guarani
+  semestre: "___________________________"
+  ano: "2026"
+  grupo: ""
+  carrera: Medicina
+  poblacion_estudio: "Miembros adultos del pueblo originario Chacobo, provincia Vaca Díez, Beni"
+  lugar_estudio: "Comunidades Chacobo de la provincia Vaca Díez, departamento del Beni, Bolivia"
+  tipo_estudio: descriptivo

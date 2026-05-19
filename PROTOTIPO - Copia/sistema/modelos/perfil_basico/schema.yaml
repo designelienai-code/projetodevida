@@ -1,0 +1,87 @@
+id: perfil_basico
+codigo_uce: INV-01
+nombre: Perfil de Investigación (Básico)
+ano_curricular: 2do año
+descripcion: |
+  Perfil de investigación básico, máximo 2 páginas de contenido + carátula.
+  Plantea un estudio de investigación: introducción, objetivo, metodología, conclusiones esperadas.
+total_palabras_objetivo: [550, 850]
+paginas_contenido_max: 2
+
+carrera_fija: Medicina
+
+header_fields:
+  - id: titulo
+    label: "Título (debe iniciar con sustantivo derivado del verbo del objetivo: ej. 'Determinación de...')"
+    transform: upper
+    max_palabras: 21
+    requerido: true
+  - id: asignatura
+    requerido: true
+  - id: ano
+    default: "2026"
+    requerido: true
+  - id: poblacion_estudio
+    label: "Población a estudiar (ej: estudiantes de medicina, pacientes con diabetes tipo 2)"
+    requerido: true
+  - id: lugar_estudio
+    label: "Lugar de estudio"
+    requerido: true
+  - id: tipo_estudio
+    label: "Tipo de estudio"
+    opciones: ["descriptivo", "analítico"]
+    default: "descriptivo"
+    requerido: true
+
+secciones:
+  - id: introduccion_problema_justificacion
+    titulo: "INTRODUCCIÓN, PROBLEMA Y JUSTIFICACIÓN"
+    estructura: 3_parrafos
+    parrafos:
+      - id: que_se_sabe
+        palabras: [100, 150]
+        citas_min: 2
+        citas_max: 3
+        instrucciones: "Panorama global y local del tema. Importancia/frecuencia. Citar artículos de los últimos 3 años."
+      - id: que_no_se_sabe
+        palabras: [70, 150]
+        citas_min: 1
+        citas_max: 2
+        instrucciones: "Vacío de conocimiento que el estudio abordará. Limitaciones de estudios previos."
+      - id: que_se_hara
+        palabras: [70, 150]
+        citas_min: 0
+        citas_max: 0
+        instrucciones: "Importancia de cubrir ese vacío + objetivo del estudio que se realizará. SIN referencias."
+
+  - id: objetivo_general
+    titulo: "OBJETIVO GENERAL"
+    parrafos: 1
+    instrucciones: |
+      Un único enunciado. Estructura obligatoria:
+      [Verbo en infinitivo: Determinar/Cuantificar/Estimar/Identificar/Analizar/Comparar/Describir]
+      + [Qué se investigará: <10 palabras]
+      + [A quiénes: población]
+      + [Dónde: lugar]
+      + [Cuándo: año(s)].
+      Debe ser casi idéntico al título, con verbo en infinitivo en lugar del sustantivo.
+
+  - id: metodologia
+    titulo: "METODOLOGÍA"
+    sub_parrafos:
+      - id: poblacion_y_sitio
+        palabras: [50, 100]
+        instrucciones: "¿A quiénes se estudiará? + contexto/lugar. Tipo de población, ubicación, tamaño. Citas solo si pertinente."
+      - id: procedimientos
+        palabras: [70, 150]
+        instrucciones: "Paso a paso del estudio para alcanzar el objetivo. Citas solo si pertinente."
+
+  - id: conclusiones
+    titulo: "CONCLUSIONES"
+    parrafos: 1
+    palabras: [50, 100]
+    instrucciones: "Conclusiones esperadas del estudio + recomendaciones esperadas. Tiempo futuro ('se espera evidenciar...')."
+
+  - id: referencias
+    titulo: REFERENCIAS BIBLIOGRÁFICAS
+    formato: vancouver

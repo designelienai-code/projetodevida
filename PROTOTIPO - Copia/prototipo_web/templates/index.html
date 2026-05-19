@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Trabajo UCE — Web</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header>
+    <h1>📚 Trabajo UCE Web</h1>
+    <span class="badge">Local · localhost:5000</span>
+    <button onclick="abrirHistorico()" style="margin-left:auto">📚 Histórico</button>
+    <button onclick="limparEstado()" title="Apagar cache e começar do zero">🗑️ Novo</button>
+</header>
+
+<div id="modal-historico" style="display:none">
+    <div class="modal-content">
+        <h2>📚 Trabalhos finalizados</h2>
+        <ul id="historico-lista"></ul>
+        <button onclick="fecharHistorico()">Fechar</button>
+    </div>
+</div>
+
+<main class="grid">
+
+    <!-- ============ PAINEL 1: CABECERO ============ -->
+    <section class="panel" id="panel-cabecero">
+        <h2>1. Cabecero</h2>
+        <label>Modelo
+            <select id="modelo">
+                {% for m in modelos %}<option value="{{ m }}">{{ m }}</option>{% endfor %}
+            </select>
+        </label>
+        <label>Título <input id="titulo" placeholder="Ex: Bases neuroanatómicas da epilepsia"></label>
+        <label>Asignatura <input id="asignatura" placeholder="Ex: neuroanatomia"></label>
+        <label>Año <input id="ano" value="2026"></label>
+        <label>Gestión <select id="gestao"><option>G1</option><option>G2</option></select></label>
+        <label>Prompt do autor (opcional)
+            <textarea id="prompt_autor" rows="2" placeholder="Viés/ângulo desejado"></textarea>
+        </label>
+        <button onclick="carregarModelo()">Carregar modelo</button>
+        <div id="info-modelo"></div>
+    </section>
+
+    <!-- ============ PAINEL 2: FONTES ============ -->
+    <section class="panel" id="panel-fontes">
+        <h2>2. Fontes</h2>
+        <label>Query de pesquisa
+            <input id="query" placeholder="Ex: epilepsy neuroanatomy hippocampus">
+        </label>
+        <button onclick="sugerirQuery()">🪄 Sugerir query a partir do cabecero</button>
+        <button onclick="pesquisarFontes()">🔎 Pesquisar PubMed + SemSch</button>
+        <div id="fontes-status"></div>
+        <ul id="fontes-lista"></ul>
+    </section>
+
+    <!-- ============ PAINEL 3: SECÇÕES ============ -->
+    <section class="panel" id="panel-seccoes">
+        <h2>3. Secções (Redactor → Revisor)</h2>
+        <div id="seccoes-controles">
+            <select id="seccao-atual"></select>
+            <button onclick="redigirSeccao()" id="btn-redigir">✍️ Redigir uma</button>
+            <button onclick="gerarTodas()" id="btn-todas">🚀 Gerar todas</button>
+            <button onclick="cancelarBatch()" id="btn-cancelar" style="display:none">⛔ Cancelar</button>
+            <label style="display:inline-block;margin-left:8px">
+                <input type="checkbox" id="saltar-revisor"> saltar revisor (poupa custo)
+            </label>
+            <span id="custo-total" style="margin-left:8px;color:#e0b020"></span>
+            <div id="progresso-batch" style="margin-top:6px;color:#7ee2a8"></div>
+        </div>
+        <div id="seccao-output"></div>
+        <div id="seccoes-acumuladas"></div>
+        <button onclick="salvarTrabajo()" id="btn-salvar" style="display:none">💾 Salvar trabajo</button>
+    </section>
+
+    <!-- ============ PAINEL 4: VALIDAÇÃO ============ -->
+    <section class="panel" id="panel-validacao">
+        <h2>4. Validação</h2>
+        <div id="validacao-output">Aguardando primeira secção…</div>
+    </section>
+
+</main>
+
+<script>
+// Estado global da sessão (persiste em localStorage)
+const STORAGE_KEY = "trabajo_uce_estado";
+let estado = restaurarEstado() || {
+    modelo: null,
+    schema: null,
+    fontes: [],
+    fontes_selecionadas: [],
+    citacoes_usadas: [],
+    secciones_completadas: [],
+    seccao_atual_idx: 0,
+    texto_completo: "",
+    custo_acumulado: 0,
+    cabecero: {},
+};
+let batchCancelado = false;
+
+function salvarEstado() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(estado)); } catch (e) {}
+}
+
+function restaurarEstado() {
+    try {
+        const s = localStorage.getItem(STORAGE_KEY);
+        if (!s) return null;
+        const e = JSON.parse(s);
+        if (e.texto_completo || e.fontes?.length) {
+            if (!confirm("Encontrei um trabalho em progresso no cache. Restaurar?")) {
+                localStorage.removeItem(STORAGE_KEY);
+                return null;
+            }
+        }
+        return e;
+    } catch (e) { return null; }
+}
+
+function limparEstado() {
+    if (!confirm("Apagar TUDO e começar novo trabalho?")) return;
+    localStorage.removeItem(STORAGE_KEY);
+    location.reload();
+}
+
+// Restaurar UI do estado guardado
+window.addEventListener("DOMContentLoaded", () => {
+    if (estado.cabecero?.titulo) {
+        ["titulo", "asignatura", "ano", "prompt_autor"].forEach(k => {
+            if (estado.cabecero[k]) document.getElementById(k === "prompt_autor" ? "prompt_autor" : k).value = estado.cabecero[k];
+        });
+        if (estado.cabecero.gestao) document.getElementById("gestao").value = estado.cabecero.gestao;
+        if (estado.modelo) document.getElementById("modelo").value = estado.modelo;
+    }
+    if (estado.custo_acumulado) {
+        document.getElementById("custo-total").textContent =
+            `💰 $${estado.custo_acumulado.toFixed(4)} acumulado`;
+    }
+    if (estado.fontes?.length) renderFontes();
+    if (estado.secciones_completadas?.length === (estado.schema?.secciones?.length || estado.schema?.sections?.length)
+        && estado.secciones_completadas.length > 0) {
+        document.getElementById("btn-salvar").style.display = "inline-block";
+    }
+});
+
+async function carregarModelo() {
+    const id = document.getElementById("modelo").value;
+    const r = await fetch(`/api/modelo/${id}`);
+    const data = await r.json();
+    if (!data.ok) { alert("Erro: " + data.erro); return; }
+    estado.modelo = id;
+    estado.schema = data.schema;
+    const seccoes = data.schema.secciones || data.schema.sections || [];
+    document.getElementById("info-modelo").innerHTML =
+        `<small>✓ ${seccoes.length} secções carregadas</small>`;
+    const sel = document.getElementById("seccao-atual");
+    sel.innerHTML = "";
+    seccoes.forEach((s, i) => {
+        const opt = document.createElement("option");
+        opt.value = i;
+        opt.textContent = `${i+1}. ${s.titulo || s.id}`;
+        sel.appendChild(opt);
+    });
+}
+
+async function sugerirQuery() {
+    const titulo = document.getElementById("titulo").value.trim();
+    const asignatura = document.getElementById("asignatura").value.trim();
+    const prompt = document.getElementById("prompt_autor").value.trim();
+    if (!titulo) return alert("Preenche o título no Painel 1 primeiro");
+    document.getElementById("fontes-status").innerHTML = "🪄 Gerando query…";
+    const r = await fetch("/api/sugerir-query", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({titulo, asignatura, prompt})
+    });
+    const data = await r.json();
+    if (!data.ok) {
+        document.getElementById("fontes-status").innerHTML = "❌ " + data.erro;
+        return;
+    }
+    document.getElementById("query").value = data.query;
+    document.getElementById("fontes-status").innerHTML = "✓ Query sugerida. Edita se quiseres e clica Pesquisar.";
+}
+
+async function pesquisarFontes() {
+    const q = document.getElementById("query").value.trim();
+    if (!q) return alert("Escreve uma query");
+    document.getElementById("fontes-status").innerHTML = "⏳ Pesquisando…";
+    const r = await fetch("/api/pesquisa", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({query: q})
+    });
+    const data = await r.json();
+    estado.fontes_info = data.resultados.filter(p => p._info).map(p => p._info);
+    estado.fontes = data.resultados.filter(p => !p.erro && !p._info);
+    estado.fontes_selecionadas = [...estado.fontes];
+    salvarEstado();
+    renderFontes();
+}
+
+function renderFontes() {
+    const infos = estado.fontes_info || [];
+    const infoHtml = infos.length ? `<small style="color:#e0b020">⚠️ ${infos.join(" | ")}</small><br>` : "";
+    const lista = document.getElementById("fontes-lista");
+    lista.innerHTML = "";
+    estado.fontes.forEach((p, i) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+            <input type="checkbox" checked data-idx="${i}">
+            <strong>(${i+1})</strong> ${p.titulo}
+            <br><small>${p.revista} · ${p.ano} · ${p.fonte}
+            ${p.doi ? `· <a href="https://doi.org/${p.doi}" target="_blank">DOI</a>` : ""}
+            ${p.pmid ? `· <a href="https://pubmed.ncbi.nlm.nih.gov/${p.pmid}" target="_blank">PMID</a>` : ""}</small>
+        `;
+        lista.appendChild(li);
+    });
+    document.getElementById("fontes-status").innerHTML = `${infoHtml}✓ ${estado.fontes.length} fontes encontradas`;
+}
+
+async function redigirSeccao(idxForcado = null, autoApprove = false) {
+    if (!estado.schema) return alert("Carrega um modelo primeiro");
+    if (estado.fontes_selecionadas.length === 0) return alert("Pesquisa fontes primeiro");
+
+    const seccoes = estado.schema.secciones || estado.schema.sections || [];
+    const idx = idxForcado !== null ? idxForcado : parseInt(document.getElementById("seccao-atual").value);
+    const spec = seccoes[idx];
+
+    document.getElementById("btn-redigir").disabled = true;
+    document.getElementById("seccao-output").innerHTML =
+        "⏳ Redactor (Claude) trabalhando… isto pode demorar 30-90s.";
+
+    const cabecero = {
+        titulo: document.getElementById("titulo").value,
+        asignatura: document.getElementById("asignatura").value,
+        ano: document.getElementById("ano").value,
+        gestao: document.getElementById("gestao").value,
+        prompt: document.getElementById("prompt_autor").value,
+    };
+
+    const saltarRevisor = document.getElementById("saltar-revisor").checked;
+    const r = await fetch("/api/redigir", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            section_spec: spec,
+            cabecero: cabecero,
+            bibliografia: estado.fontes_selecionadas,
+            citacoes_ja_usadas: estado.citacoes_usadas,
+            secciones_anteriores: estado.secciones_completadas.slice(-1).join("\n\n"),
+            saltar_revisor: saltarRevisor,
+        })
+    });
+    const data = await r.json();
+    document.getElementById("btn-redigir").disabled = false;
+
+    if (!data.ok) {
+        document.getElementById("seccao-output").innerHTML = "❌ Erro: " + (data.erro || "");
+        return;
+    }
+
+    estado.custo_acumulado += (data.custo_usd || 0);
+    estado.cabecero = cabecero;
+    document.getElementById("custo-total").textContent =
+        `💰 $${estado.custo_acumulado.toFixed(4)} acumulado`;
+
+    if (autoApprove) {
+        // Modo batch: aprovar automaticamente sem mostrar UI
+        estado.secciones_completadas.push(data.texto_final);
+        estado.texto_completo += "\n\n" + data.texto_final;
+        const matches = data.texto_final.match(/\((\d+(?:,\s*\d+)*)\)/g) || [];
+        matches.forEach(m => {
+            m.replace(/[()]/g, "").split(",").forEach(n => {
+                const num = parseInt(n.trim());
+                if (!estado.citacoes_usadas.includes(num)) estado.citacoes_usadas.push(num);
+            });
+        });
+        salvarEstado();
+        return data;
+    }
+
+    document.getElementById("seccao-output").innerHTML = `
+        <h3>${spec.titulo || spec.id} — <em>${data.decisao}</em>
+            <small style="color:#888">($${(data.custo_usd||0).toFixed(4)} esta secção)</small>
+        </h3>
+        <textarea id="editor-seccao" rows="18" style="width:100%;font-family:monospace">${escapeHtml(data.texto_final)}</textarea>
+        <div class="acoes">
+            <button onclick="aprovarSeccao(${idx})">✓ Aprovar (com edições) e continuar</button>
+            <button onclick="redigirSeccao()">↻ Regenerar tudo</button>
+            <button onclick="revalidar()">🔄 Revalidar texto editado</button>
+        </div>
+        <details><summary>Ver texto bruto do redactor (Claude)</summary>
+            <pre>${escapeHtml(data.texto_redactor)}</pre></details>
+        ${data.texto_revisor ? `<details><summary>Ver output do revisor (Qwen)</summary>
+            <pre>${escapeHtml(data.texto_revisor)}</pre></details>` : ""}
+    `;
+    estado.ultima_seccao_spec = spec;
+    renderValidacao(data.validacao);
+    salvarEstado();
+    return data;
+}
+
+async function gerarTodas() {
+    if (!estado.schema) return alert("Carrega um modelo primeiro");
+    if (estado.fontes_selecionadas.length === 0) return alert("Pesquisa fontes primeiro");
+    if (!confirm("Vai gerar TODAS as secções de uma vez (3-8 minutos). Continuar?")) return;
+
+    const seccoes = estado.schema.secciones || estado.schema.sections || [];
+    const inicio = estado.secciones_completadas.length;
+    batchCancelado = false;
+    document.getElementById("btn-cancelar").style.display = "inline-block";
+    document.getElementById("btn-todas").disabled = true;
+    document.getElementById("btn-redigir").disabled = true;
+
+    for (let i = inicio; i < seccoes.length; i++) {
+        if (batchCancelado) {
+            document.getElementById("progresso-batch").textContent = `⛔ Cancelado na secção ${i+1}`;
+            break;
+        }
+        const spec = seccoes[i];
+        document.getElementById("progresso-batch").textContent =
+            `⏳ Gerando ${i+1}/${seccoes.length}: ${spec.titulo || spec.id}…`;
+        try {
+            await redigirSeccao(i, true);
+        } catch (e) {
+            document.getElementById("progresso-batch").textContent = `❌ Erro na secção ${i+1}: ${e}`;
+            break;
+        }
+    }
+
+    document.getElementById("btn-cancelar").style.display = "none";
+    document.getElementById("btn-todas").disabled = false;
+    document.getElementById("btn-redigir").disabled = false;
+
+    if (estado.secciones_completadas.length === seccoes.length) {
+        document.getElementById("progresso-batch").textContent =
+            `🎉 ${seccoes.length} secções completas — $${estado.custo_acumulado.toFixed(4)} total`;
+        document.getElementById("btn-salvar").style.display = "inline-block";
+        // Mostrar texto final no painel
+        document.getElementById("seccao-output").innerHTML = `
+            <h3>Trabajo completo</h3>
+            <textarea rows="20" style="width:100%;font-family:monospace" id="editor-final">${escapeHtml(estado.texto_completo.trim())}</textarea>
+            <small>Podes editar à mão antes de salvar.</small>
+        `;
+    }
+}
+
+function cancelarBatch() {
+    batchCancelado = true;
+}
+
+async function revalidar() {
+    // Re-valida o texto editado pelo utilizador, no cliente (sem chamar LLM)
+    const texto = document.getElementById("editor-seccao").value;
+    const spec = estado.ultima_seccao_spec || {};
+    const r = await fetch("/api/validar", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({texto, section_spec: spec})
+    });
+    const data = await r.json();
+    if (data.ok) renderValidacao(data.validacao);
+}
+
+function aprovarSeccao(idx) {
+    // Usa o texto do editor (que pode estar editado à mão), não o original
+    const textoFinal = document.getElementById("editor-seccao").value;
+    estado.secciones_completadas.push(textoFinal);
+    estado.texto_completo += "\n\n" + textoFinal;
+    // atualizar citações usadas
+    const matches = textoFinal.match(/\((\d+(?:,\s*\d+)*)\)/g) || [];
+    matches.forEach(m => {
+        m.replace(/[()]/g, "").split(",").forEach(n => {
+            const num = parseInt(n.trim());
+            if (!estado.citacoes_usadas.includes(num)) estado.citacoes_usadas.push(num);
+        });
+    });
+    const seccoes = estado.schema.secciones || estado.schema.sections || [];
+    if (idx + 1 < seccoes.length) {
+        document.getElementById("seccao-atual").value = idx + 1;
+        document.getElementById("seccao-output").innerHTML = "✓ Aprovada. Pronto para próxima.";
+    } else {
+        document.getElementById("seccao-output").innerHTML = "🎉 Todas secções completas.";
+        document.getElementById("btn-salvar").style.display = "inline-block";
+    }
+    salvarEstado();
+}
+
+function renderValidacao(v) {
+    const ok = b => b ? "✅" : "❌";
+    document.getElementById("validacao-output").innerHTML = `
+        <ul>
+            <li>${ok(v.palavras_ok)} Palavras: ${v.palavras} (range ${v.palavras_range})</li>
+            <li>${ok(v.citacoes_ok)} Citações únicas: ${v.citacoes_unicas} (range ${v.citacoes_range})</li>
+            <li>${ok(v.lista_negra_ok)} Lista negra: ${v.lista_negra_hits.length} hits
+                ${v.lista_negra_hits.length ? "<br><small>" + v.lista_negra_hits.join(" · ") + "</small>" : ""}
+            </li>
+            <li>${ok(v.em_dashes_ok)} Em-dashes: ${v.em_dashes}</li>
+        </ul>
+    `;
+}
+
+async function salvarTrabajo() {
+    const cabecero = {
+        titulo: document.getElementById("titulo").value,
+        asignatura: document.getElementById("asignatura").value,
+        ano: document.getElementById("ano").value,
+        gestao: document.getElementById("gestao").value,
+    };
+    // Se utilizador editou no textarea final, usa essa versão
+    const editorFinal = document.getElementById("editor-final");
+    const textoFinal = editorFinal ? editorFinal.value : estado.texto_completo;
+
+    const r = await fetch("/api/salvar", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            cabecero, modelo: estado.modelo,
+            texto_completo: textoFinal,
+            fontes: estado.fontes_selecionadas,
+            citacoes_usadas: estado.citacoes_usadas,
+        })
+    });
+    const data = await r.json();
+    if (data.ok) {
+        alert(`✓ Salvo: ${data.arquivo}\n\nCache limpo. Pronto para próximo trabalho.`);
+        localStorage.removeItem(STORAGE_KEY);
+        setTimeout(() => location.reload(), 500);
+    } else {
+        alert("Erro ao salvar");
+    }
+}
+
+async function abrirHistorico() {
+    const r = await fetch("/api/historico");
+    const data = await r.json();
+    const ul = document.getElementById("historico-lista");
+    ul.innerHTML = data.items.length ? "" : "<li>Sem trabalhos finalizados ainda.</li>";
+    data.items.forEach(it => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+            <strong>${it.nome}</strong>
+            <br><small>${it.modificado} · ${it.tamanho_kb} KB</small>
+        `;
+        ul.appendChild(li);
+    });
+    document.getElementById("modal-historico").style.display = "flex";
+}
+
+function fecharHistorico() {
+    document.getElementById("modal-historico").style.display = "none";
+}
+
+// Auto-save cabecero ao digitar
+["titulo", "asignatura", "ano", "gestao", "prompt_autor", "modelo"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener("change", () => {
+        estado.cabecero = {
+            titulo: document.getElementById("titulo").value,
+            asignatura: document.getElementById("asignatura").value,
+            ano: document.getElementById("ano").value,
+            gestao: document.getElementById("gestao").value,
+            prompt: document.getElementById("prompt_autor").value,
+        };
+        if (id === "modelo") estado.modelo = el.value;
+        salvarEstado();
+    });
+});
+
+function escapeHtml(s) {
+    return (s || "").replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+}
+</script>
+
+</body>
+</html>

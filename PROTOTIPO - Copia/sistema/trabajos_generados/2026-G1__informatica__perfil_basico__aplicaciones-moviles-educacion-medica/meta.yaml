@@ -1,0 +1,47 @@
+modelo: perfil_basico
+codigo_uce: INV-01
+gestao: G1
+ano: 2026
+
+cabecero:
+  titulo: "APLICACIONES MÓVILES EN LA EDUCACIÓN Y PRÁCTICA MÉDICA: USO, DESARROLLO Y UTILIDAD PERCIBIDA ENTRE ESTUDIANTES UNIVERSITARIOS DE UCEBOL"
+  carrera: Medicina
+  asignatura: Informática
+  docente: Walter
+  grupo: B2
+  semestre: "3er semestre"
+  poblacion_estudio: "Estudiantes de la carrera de Medicina de UCEBOL"
+  lugar_estudio: "UCEBOL, Santa Cruz de la Sierra, Bolivia"
+  tipo_estudio: descriptivo
+  prompt_autor: "Énfasis en cómo se crean las apps, en la democratización del desarrollo (low-code/no-code) y en su utilidad cotidiana para estudiantes, emprendedores e instituciones del ámbito médico."
+
+participantes:
+  - { nombre: "María José Vaca Soliz", registro: 74845 }
+  - { nombre: "Connie Fernández Torres", registro: 75375 }
+  - { nombre: "Jenny Espinoza Quispe", registro: 75108 }
+  - { nombre: "Elvita Jazmín Flores Castillo", registro: 7527 }
+  - { nombre: "Yuliana Melgar Pinto", registro: 75460 }
+  - { nombre: "Fabiana Mansilla Melgar", registro: 74980 }
+
+secciones_log:
+  introduccion_p1_que_se_sabe: { palabras: 148, citas: 3, rango_ok: true, citas_ok: true }
+  introduccion_p2_que_no_se_sabe: { palabras: 135, citas: 2, rango_ok: true, citas_ok: true }
+  introduccion_p3_que_se_hara: { palabras: 145, citas: 0, rango_ok: true, citas_ok: true }
+  objetivo_general: { ok: true }
+  metodologia_poblacion_y_sitio: { palabras: 87, rango_ok: true }
+  metodologia_procedimientos: { palabras: 148, citas: 5, rango_ok: true }
+  conclusiones: { palabras: 92, rango_ok: true }
+
+total_palabras_contenido: 803
+nota_total: "Conteúdo principal ~803 palabras, dentro del límite de 4 páginas del modelo INV-01."
+
+validacion:
+  todas_citas_en_referencias: true
+  todas_referencias_citadas: true
+  em_dashes: 0
+  lista_negra_matches: 0
+  coherencia_titulo_objetivo: true
+  observaciones: |
+    - Estructura sigue el modelo INV-01 (Perfil Básico): 3 párrafos en Introducción/Problema/Justificación (¿Qué se sabe? / ¿Qué no se sabe? / ¿Qué se hará?), Objetivo único, Metodología con población+procedimientos, Conclusiones esperadas.
+    - Referencias Ozdalga 2012 y Buabbas 2021 fuera de la ventana estricta de 3 años (2023-2026); mantenidas por escasez de literatura específica al contexto y por su carácter seminal.
+    - Asignatura: Informática; carrera_fija del schema: Medicina (alineado con población del estudio).

@@ -1,0 +1,55 @@
+modelo: perfil_intermedio
+codigo_uce: INV-02
+asignatura: Epidemiología
+docente: Vasny Aguilar
+grupo: C
+participante: Marcela Botelho Maciel — 73864
+ano: "2026"
+titulo: PREVALENCIA DE LA AGRESIVIDAD REACTIVA EN NIÑOS CON BURNOUT ACADÉMICO Y DEPENDENCIA AL TELÉFONO MÓVIL EN BOLIVIA
+poblacion: escolares de 8 a 12 años de Santa Cruz de la Sierra, Bolivia
+tipo_estudio: analítico
+prompt_vies: "Criticar la construcción deliberada de las plataformas sociales digitales como factor estructural — no culpabilizar al usuario sino al diseño (persuasive technology, gamificación adictiva)"
+
+secciones_log:
+  introduccion:
+    redactor: aprobado_con_correcciones
+    revisor: corregido
+    correcciones: ["reescritura apertura vaga", "eliminación de claim neurocientífico no soportado por Health Promot Pract"]
+  el_problema:
+    redactor: aprobado_con_correcciones
+    revisor: corregido
+    correcciones: ["reducción de 3 citas a 2 (límite schema)", "cita (3) reutilizada correctamente"]
+  justificacion:
+    redactor: aprobado
+    revisor: APROBADO
+  hipotesis:
+    redactor: aprobado
+    revisor: APROBADO
+  objetivo_general:
+    redactor: aprobado
+    revisor: APROBADO
+  metodologia:
+    redactor: aprobado_con_correcciones
+    revisor: corregido
+    correcciones: ["Procedimientos reducido de 152 a ~147 palabras", "puntos de corte SAS-SV: eliminado 'validados para población latinoamericana', mantenido 'del instrumento original'"]
+  conclusiones:
+    redactor: aprobado
+    revisor: no_ejecutado (texto limpo por inspeção)
+
+citas_totales_usadas: 5
+referencias:
+  - numero: 1
+    pmid: 36138339
+    doi: 10.1177/13591045221127886
+  - numero: 2
+    pmid: 42072891
+    doi: 10.3390/healthcare14080990
+  - numero: 3
+    pmid: 34963368
+    doi: 10.1177/15248399211064640
+  - numero: 4
+    pmid: 40246585
+    doi: 10.1136/bmjpo-2024-003135
+  - numero: 5
+    pmid: 35945851
+    doi: 10.33314/jnhrc.v20i01.3737

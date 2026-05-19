@@ -1,0 +1,119 @@
+id: perfil_intermedio
+codigo_uce: INV-02
+nombre: Perfil de Investigación (Intermedio)
+ano_curricular: 3er año
+descripcion: |
+  Perfil de investigación intermedio, máximo 4 páginas de contenido + carátula.
+  Versión expandida del perfil básico con: hipótesis (si analítico), criterios inclusión/exclusión, muestreo, variables.
+total_palabras_objetivo: [1100, 1700]
+paginas_contenido_max: 4
+
+carrera_fija: Medicina
+
+header_fields:
+  - id: titulo
+    transform: upper
+    max_palabras: 21
+    requerido: true
+  - id: asignatura
+    requerido: true
+  - id: ano
+    default: "2026"
+    requerido: true
+  - id: poblacion_estudio
+    requerido: true
+  - id: lugar_estudio
+    requerido: true
+  - id: tipo_estudio
+    opciones: ["descriptivo", "analítico"]
+    default: "descriptivo"
+    requerido: true
+  - id: incluir_hipotesis
+    derivado_de: tipo_estudio
+    regla: "true si tipo_estudio == 'analítico', false en otro caso"
+
+secciones:
+  - id: introduccion
+    titulo: "INTRODUCCIÓN"
+    parrafos: 1
+    palabras: [100, 150]
+    citas_min: 2
+    citas_max: 3
+    instrucciones: "Solo el párrafo '¿Qué se sabe?'. Panorama global + local. Hechos, citas últimos 3 años."
+
+  - id: problema
+    titulo: "EL PROBLEMA"
+    sub_secciones:
+      - id: situacion_problematica
+        titulo: "Situación problemática"
+        palabras: [70, 150]
+        citas_min: 1
+        citas_max: 2
+        instrucciones: "¿Qué no se sabe? Vacío + limitaciones de estudios previos."
+      - id: formulacion_problema
+        titulo: "Formulación del problema"
+        formato: pregunta_unica
+        instrucciones: |
+          Una única pregunta de investigación, fuertemente relacionada al objetivo general.
+          Tip: copiar el objetivo general y transformarlo en pregunta.
+          Ejemplo: "¿Cuál es la prevalencia de X en Y, lugar, año?"
+
+  - id: justificacion
+    titulo: "JUSTIFICACIÓN"
+    parrafos: 1
+    palabras: [70, 150]
+    citas_min: 0
+    citas_max: 0
+    instrucciones: "¿Qué se hará? Importancia + 'vender' la propuesta. Enlazada a la situación problemática. Sin citas."
+
+  - id: hipotesis
+    titulo: "HIPÓTESIS"
+    condicional: "incluir_hipotesis == true"
+    parrafos: 1
+    instrucciones: |
+      Solo para estudios analíticos. Un enunciado afirmativo respondiendo a la pregunta de investigación,
+      con: desenlace + grupos a comparar + dirección esperada + población. Sin citas.
+
+  - id: objetivo_general
+    titulo: "OBJETIVO GENERAL"
+    instrucciones: "Mismo formato que perfil_basico: verbo infinitivo + qué + a quiénes + dónde + cuándo."
+
+  - id: metodologia
+    titulo: "METODOLOGÍA"
+    sub_secciones:
+      - id: poblacion_y_sitio
+        palabras: [50, 100]
+        instrucciones: "Tipo de población, ubicación, tamaño, contexto."
+      - id: criterios_inclusion
+        formato: lista_enumerada
+        items_min: 3
+        instrucciones: "Criterios para que un participante/objeto sea elegible. Enumerados, no repetitivos."
+      - id: criterios_exclusion
+        formato: lista_enumerada
+        items_min: 3
+        instrucciones: "Criterios para rechazar. NO son la negación de los de inclusión."
+      - id: muestreo
+        sub_campos:
+          - tipo_muestreo
+          - unidades_muestreo
+          - pasos_seleccion
+        instrucciones: "Tipo (aleatorio simple/sistemático/conveniencia/etc), unidades, pasos."
+      - id: procedimientos
+        palabras: [70, 150]
+        instrucciones: "Paso a paso del estudio. Citas si pertinente."
+      - id: variables
+        sub_secciones:
+          - id: variable_dependiente
+            campos: [nombre, definicion_conceptual, definicion_operativa, medicion, tipo_y_escala, valores_posibles]
+          - id: variable_independiente
+            campos: [nombre, definicion_conceptual, definicion_operativa, medicion, tipo_y_escala, valores_posibles]
+        instrucciones: "Mínimo 1 dependiente y 1 independiente. Cada una con sus 5-6 campos descriptivos."
+
+  - id: conclusiones
+    titulo: "CONCLUSIONES"
+    palabras: [50, 100]
+    instrucciones: "Conclusiones esperadas + recomendaciones esperadas, en tiempo futuro."
+
+  - id: referencias
+    titulo: REFERENCIAS BIBLIOGRÁFICAS
+    formato: vancouver

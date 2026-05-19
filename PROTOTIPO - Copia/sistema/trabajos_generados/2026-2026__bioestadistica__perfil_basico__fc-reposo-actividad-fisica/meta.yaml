@@ -1,0 +1,47 @@
+modelo: perfil_basico
+codigo_uce: INV-01
+asignatura: Bioestadística
+ano: "2026"
+titulo: "DETERMINACIÓN DE LA FRECUENCIA CARDÍACA EN REPOSO EN ESTUDIANTES DE MEDICINA CON DIFERENTES NIVELES DE ACTIVIDAD FÍSICA, UCEBOL, 2026"
+poblacion_estudio: estudiantes de medicina de la UCEBOL
+lugar_estudio: UCEBOL, Santa Cruz de la Sierra, Bolivia
+tipo_estudio: analítico
+carrera: Medicina
+fecha_generacion: "2026-05-15"
+
+palabras_por_seccion:
+  introduccion_problema_justificacion: 297
+  objetivo_general: 31
+  metodologia_poblacion: 81
+  metodologia_procedimientos: 141
+  conclusiones: 84
+  total_cuerpo: ~634
+
+pipeline:
+  - seccion: introduccion_problema_justificacion
+    redactor: redactor-cientifico
+    revisor: revisor-humanizador
+    resultado: corregido
+    correcciones:
+      - tipo: ia
+        descripcion: "cobra relevancia" reemplazado por "aporta a la caracterización basal"
+      - tipo: alucinacion
+        descripcion: dato ">50% bradicardia" no soportado por D'Ambrosio (2); reformulado a descripción de mecanismos multifactoriales
+      - tipo: alucinacion
+        descripcion: atribución "principalmente a remodelación autonómica" contradice el paper D'Ambrosio que enfatiza remodelación intrínseca del nodo sinusal; corregido
+
+  - seccion: objetivo_general_y_metodologia
+    redactor: redactor-cientifico
+    revisor: revisor-humanizador
+    resultado: corregido
+    correcciones:
+      - tipo: alucinacion
+        descripcion: categoría IPAQ "sedentarios" corregida a "bajo nivel de actividad física" (terminología oficial del instrumento)
+      - tipo: tangencia
+        descripcion: cita (6,7) movida al párrafo 1 donde el IPAQ es presentado por primera vez, no solo al párrafo 2
+
+  - seccion: conclusiones
+    redactor: redactor-cientifico
+    revisor: revisor-humanizador
+    resultado: APROBADO
+    correcciones: []

@@ -1,0 +1,31 @@
+modelo: perfil_basico
+asignatura: Bioestadística
+docente: Dr. Miguel Ángel Casal
+grupo: C
+gestion: "2026"
+titulo: USO DE LA BIBLIOTECA FÍSICA Y VIRTUAL POR LOS ESTUDIANTES DE LA UCEBOL
+participantes:
+  - nombre: Yuliana Melgar Pinto
+    registro: "75460"
+  - nombre: Maria Fernanda Callau A.
+    registro: "75460"
+  - nombre: Susana Suárez Rodríguez
+  - nombre: Nancy
+lugar_estudio: UCEBOL, Santa Cruz de la Sierra, Bolivia
+tipo_estudio: descriptivo, transversal, cuantitativo
+n_real: 136
+n_minimo_calculado: 278
+muestreo: no probabilístico por conveniencia
+instrumento: cuestionario autoadministrado anónimo, 15 preguntas cerradas, Google Forms
+periodo_recoleccion: "2026"
+secciones_generadas:
+  - Introducción
+  - Marco Teórico
+  - Metodología
+  - Resultados
+  - Discusión
+  - Conclusiones
+citas_totales: 6
+pipeline: redactor-cientifico → revisor-humanizador
+estado: COMPLETO
+fecha_generacion: "2026-05-15"

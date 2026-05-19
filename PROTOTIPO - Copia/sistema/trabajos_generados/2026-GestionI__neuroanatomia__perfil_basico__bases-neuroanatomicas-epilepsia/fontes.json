@@ -1,0 +1,74 @@
+[
+  {
+    "numero": 1,
+    "pmid": "38018250",
+    "doi": "10.7189/jogh.13.04160",
+    "autores": "Huang Y, Li Y, Pan H",
+    "titulo": "Global, regional, and national burden of neurological disorders in 204 countries and territories worldwide",
+    "revista": "J Glob Health",
+    "ano": 2023,
+    "volume": "13",
+    "numero_revista": null,
+    "paginas": "04160"
+  },
+  {
+    "numero": 2,
+    "pmid": "41544691",
+    "doi": "10.1016/j.ejphar.2026.178550",
+    "autores": "Eslamizade MJ, Dabbagh A, Karimzadeh F",
+    "titulo": "GABAergic dynamics in thalamocortical circuits: Insights into absence seizures",
+    "revista": "Eur J Pharmacol",
+    "ano": 2026,
+    "volume": "1015",
+    "numero_revista": null,
+    "paginas": "178550"
+  },
+  {
+    "numero": 3,
+    "pmid": "38662500",
+    "doi": "10.1093/brain/awae126",
+    "autores": "Barbour AJ, Gourmaud S, Lancaster E",
+    "titulo": "Seizures exacerbate excitatory:inhibitory imbalance in Alzheimer's disease and 5XFAD mice",
+    "revista": "Brain",
+    "ano": 2024,
+    "volume": "147",
+    "numero_revista": "6",
+    "paginas": "2169-2184"
+  },
+  {
+    "numero": 4,
+    "pmid": "40153181",
+    "doi": "10.1007/s12640-025-00738-2",
+    "autores": "Kaur M, Porel P, Patel R",
+    "titulo": "Kynurenine Pathway in Epilepsy: Unraveling Its Role in Glutamate Excitotoxicity, GABAergic Dysregulation, Neuroinflammation, and Mitochondrial Dysfunction",
+    "revista": "Neurotox Res",
+    "ano": 2025,
+    "volume": "43",
+    "numero_revista": "2",
+    "paginas": "18"
+  },
+  {
+    "numero": 5,
+    "pmid": "38537703",
+    "doi": "10.1055/s-0044-1782616",
+    "autores": "Rubinos C, San-Juan D, Alva-Diaz C",
+    "titulo": "Epilepsy Care in Latin America and the Caribbean: Overcoming Challenges and Embracing Opportunities",
+    "revista": "Semin Neurol",
+    "ano": 2024,
+    "volume": "44",
+    "numero_revista": "2",
+    "paginas": "130-146"
+  },
+  {
+    "numero": 6,
+    "pmid": "40398519",
+    "doi": "10.1016/j.nbd.2025.106965",
+    "autores": "Kleis P, Paschen E, Djie-Maletz A",
+    "titulo": "Long-term hippocampal low-frequency stimulation alleviates focal seizures",
+    "revista": "Neurobiol Dis",
+    "ano": 2025,
+    "volume": "212",
+    "numero_revista": null,
+    "paginas": "106965"
+  }
+]

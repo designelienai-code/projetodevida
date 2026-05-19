@@ -1,0 +1,95 @@
+modelo: perfil_intermedio
+codigo_uce: INV-02
+generado: "2026-05-12"
+
+cabecero:
+  titulo: "INFECCIONES GASTROINTESTINALES Y HÁBITOS DE HIGIENE ALIMENTARIA EN ESTUDIANTES UNIVERSITARIOS"
+  autor: "{{autor}}"
+  docente: "{{docente}}"
+  asignatura: Epidemiología
+  semestre: "{{semestre}}"
+  ano: "2026"
+  grupo: "{{grupo}}"
+  carrera: Medicina
+  poblacion_estudio: "Estudiantes universitarios de la UCEBOL"
+  lugar_estudio: "Santa Cruz de la Sierra, Bolivia"
+  tipo_estudio: analítico
+  incluir_hipotesis: true
+
+pipeline:
+  - seccion: introduccion
+    redactor: OK
+    revisor: APROBADO
+    palabras: 124
+    citas: [1, 2, 3]
+  - seccion: situacion_problematica
+    redactor: OK
+    revisor: APROBADO
+    palabras: 116
+    citas: [2, 3]
+  - seccion: formulacion_problema
+    redactor: OK
+    revisor: APROBADO
+    palabras: 33
+    citas: []
+  - seccion: justificacion
+    redactor: OK
+    revisor: APROBADO
+    palabras: 128
+    citas: []
+  - seccion: hipotesis
+    redactor: OK
+    revisor: APROBADO
+    palabras: 71
+    citas: []
+  - seccion: objetivo_general
+    redactor: OK
+    revisor: APROBADO
+    palabras: 33
+    citas: []
+  - seccion: metodologia.poblacion_y_sitio
+    redactor: OK
+    revisor: CORREGIDO (tiempo verbal pretérito → futuro)
+    palabras: 82
+    citas: []
+  - seccion: metodologia.criterios_inclusion
+    redactor: OK
+    revisor: APROBADO
+    palabras: 78
+    citas: []
+  - seccion: metodologia.criterios_exclusion
+    redactor: OK
+    revisor: CORREGIDO (tiempo verbal pretérito → futuro/presente)
+    palabras: 168
+    citas: []
+  - seccion: metodologia.muestreo
+    redactor: OK
+    revisor: APROBADO
+    palabras: 215
+    citas: []
+  - seccion: metodologia.procedimientos
+    redactor: OK
+    revisor: CORREGIDO (tiempo verbal pretérito → futuro)
+    palabras: 121
+    citas: [4]
+  - seccion: metodologia.variables
+    redactor: OK
+    revisor: APROBADO
+    palabras: 326
+    citas: []
+  - seccion: conclusiones
+    redactor: OK
+    revisor: CORREGIDO_MANUAL (eliminado "agua no tratada" — ítem fuera del instrumento; sustituido por ítems reales del índice)
+    palabras: 91
+    citas: []
+
+total_palabras_cuerpo: ~1385
+citas_totales_usadas: 4
+validacion_checklist:
+  placeholders_sustituidos: false  # autor, docente, semestre, grupo pendientes de llenado manual
+  citas_con_entrada_refs: true
+  referencias_verificadas_doi: true
+  coerencia_titulo_objetivo_pregunta: true
+  sin_lista_negra: true
+  sin_em_dashes: true
+  tiempo_verbal_perfil: true  # corregido por revisores

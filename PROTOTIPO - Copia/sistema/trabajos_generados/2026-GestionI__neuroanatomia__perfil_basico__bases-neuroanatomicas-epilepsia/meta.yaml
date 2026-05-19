@@ -1,0 +1,40 @@
+titulo: BASES NEUROANATÓMICAS Y FISIOLÓGICAS DE LA EPILEPSIA
+asignatura: Neuroanatomía
+carrera: Medicina
+ano: "2026"
+gestion: GestionI
+modelo: perfil_basico
+codigo_uce: INV-01
+fecha_generacion: "2026-05-13"
+poblacion: adultos con epilepsia descritos en literatura científica (PubMed, SciELO, Scopus)
+lugar: bases de datos internacionales
+tipo_estudio: descriptivo
+
+secciones:
+  introduccion_problema_justificacion:
+    palabras_p1: 120
+    palabras_p2: 100
+    palabras_p3: 86
+    citas: [1, 2, 3, 4, 5]
+    estado: APROBADO_CON_CORRECCIONES
+    correcciones:
+      - tipo: alucinacion — numeración interna del redactor corregida para alinear con fontes.json
+      - tipo: alucinacion — "50 millones" sin fuente verificable reemplazado por datos verificables de Huang et al.
+      - tipo: alucinacion — estructuras neuroanatómicas citadas con Rubinos (epidemiología) corregidas; citadas con Eslamizade (mecanismo) y Barbour (tejido humano)
+  objetivo_general:
+    palabras: 34
+    citas: []
+    estado: APROBADO
+  metodologia:
+    palabras_poblacion: 66
+    palabras_procedimientos: 130
+    citas: [6]
+    estado: APROBADO
+  conclusiones:
+    palabras: 61
+    citas: []
+    estado: APROBADO
+
+total_palabras_contenido: 597
+rango_objetivo: [550, 850]
+estado_global: APROBADO

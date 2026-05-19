@@ -1,0 +1,53 @@
+[
+  {
+    "numero": 1,
+    "pmid": "37806726",
+    "doi": "10.1016/j.mcna.2023.06.007",
+    "autores": "Parkinson MD, Stout R, Dysinger W",
+    "titulo": "Lifestyle Medicine: Prevention, Treatment, and Reversal of Disease",
+    "revista": "Med Clin North Am",
+    "ano": 2023,
+    "volumen": "107",
+    "numero_revista": "6",
+    "paginas": "1109-1120",
+    "vancouver": "Parkinson MD, Stout R, Dysinger W. Lifestyle Medicine: Prevention, Treatment, and Reversal of Disease. Med Clin North Am. 2023;107(6):1109-1120."
+  },
+  {
+    "numero": 2,
+    "pmid": "41349293",
+    "doi": "10.1016/j.puhe.2025.106079",
+    "autores": "Ferrero-Hernández P, Farías-Valenzuela C, Rezende LFM",
+    "titulo": "Cancer deaths attributable to lifestyle risk factors in five Latin American countries",
+    "revista": "Public Health",
+    "ano": 2026,
+    "volumen": "250",
+    "paginas": "106079",
+    "vancouver": "Ferrero-Hernández P, Farías-Valenzuela C, Rezende LFM. Cancer deaths attributable to lifestyle risk factors in five Latin American countries. Public Health. 2026;250:106079."
+  },
+  {
+    "numero": 3,
+    "pmid": "36705141",
+    "doi": "10.31729/jnma.7355",
+    "autores": "Yadav M",
+    "titulo": "Diet, Sleep and Exercise: The Keystones of Healthy Lifestyle for Medical Students",
+    "revista": "JNMA J Nepal Med Assoc",
+    "ano": 2022,
+    "volumen": "60",
+    "numero_revista": "253",
+    "paginas": "841-843",
+    "vancouver": "Yadav M. Diet, Sleep and Exercise: The Keystones of Healthy Lifestyle for Medical Students. JNMA J Nepal Med Assoc. 2022;60(253):841-843."
+  },
+  {
+    "numero": 4,
+    "pmid": "37073750",
+    "doi": "10.20960/nh.04420",
+    "autores": "Tárraga Marcos A, Carbayo Herencia JA, Panisello Royo JM",
+    "titulo": "Evolución de dieta y actividad física en universitarios post-COVID",
+    "revista": "Nutr Hosp",
+    "ano": 2023,
+    "volumen": "40",
+    "numero_revista": "3",
+    "paginas": "597-604",
+    "vancouver": "Tárraga Marcos A, Carbayo Herencia JA, Panisello Royo JM. Evolución de dieta y actividad física en universitarios post-COVID. Nutr Hosp. 2023;40(3):597-604."
+  }
+]

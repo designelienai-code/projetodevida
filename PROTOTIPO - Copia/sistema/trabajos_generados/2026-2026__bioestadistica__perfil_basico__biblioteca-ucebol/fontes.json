@@ -1,0 +1,80 @@
+[
+  {
+    "numero": 1,
+    "autores": "Scoulas JM",
+    "titulo": "College students' perceptions on sense of belonging and inclusion at the academic library during COVID-19",
+    "revista": "Journal of Academic Librarianship",
+    "anio": 2021,
+    "volumen": 47,
+    "numero_revista": 6,
+    "paginas": "102460",
+    "doi": "10.1016/j.acalib.2021.102460",
+    "pmid": "36536799",
+    "vancouver": "Scoulas JM. College students' perceptions on sense of belonging and inclusion at the academic library during COVID-19. J Acad Librariansh. 2021;47(6):102460. doi:10.1016/j.acalib.2021.102460"
+  },
+  {
+    "numero": 2,
+    "autores": "Peredo Merlo MA, Mayoral LA",
+    "titulo": "El uso académico de la biblioteca universitaria, sus recursos digitales e impresos y el cambio de paradigma de consulta. Un estudio con profesores y estudiantes de la Universidad de Guadalajara",
+    "revista": "Revista de Educación Superior",
+    "anio": 2024,
+    "volumen": 53,
+    "numero_revista": 212,
+    "paginas": "85-110",
+    "doi": "10.36857/resu.2024.212.3031",
+    "pmid": null,
+    "vancouver": "Peredo Merlo MA, Mayoral LA. El uso académico de la biblioteca universitaria, sus recursos digitales e impresos y el cambio de paradigma de consulta. Rev Educ Super. 2024;53(212):85-110. doi:10.36857/resu.2024.212.3031"
+  },
+  {
+    "numero": 3,
+    "autores": "Álvarez-Flores EP, Magdaleno Moreno M, Núñez-Gómez P",
+    "titulo": "Competencia y comportamiento informacionales de estudiantes para el uso de las bibliotecas digitales universitarias",
+    "revista": "Investigación Bibliotecológica: Archivonomía, Bibliotecología e Información",
+    "anio": 2024,
+    "volumen": 38,
+    "numero_revista": 99,
+    "paginas": "129-144",
+    "doi": "10.22201/iibi.24488321xe.2024.99.58881",
+    "pmid": null,
+    "vancouver": "Álvarez-Flores EP, Magdaleno Moreno M, Núñez-Gómez P. Competencia y comportamiento informacionales de estudiantes para el uso de las bibliotecas digitales universitarias. Investig Bibliotecol. 2024;38(99):129-144. doi:10.22201/iibi.24488321xe.2024.99.58881"
+  },
+  {
+    "numero": 4,
+    "autores": "Barfi KA, Parbie SK, Filson CK, Teye MV, Kodua-Ntim K, Ayensu E",
+    "titulo": "Assessing the quality of services at an academic library",
+    "revista": "Heliyon",
+    "anio": 2023,
+    "volumen": 9,
+    "numero_revista": 12,
+    "paginas": "e22449",
+    "doi": "10.1016/j.heliyon.2023.e22449",
+    "pmid": "38125531",
+    "vancouver": "Barfi KA, Parbie SK, Filson CK, Teye MV, Kodua-Ntim K, Ayensu E. Assessing the quality of services at an academic library. Heliyon. 2023;9(12):e22449. doi:10.1016/j.heliyon.2023.e22449"
+  },
+  {
+    "numero": 5,
+    "autores": "Akter T, Ahmed SMZ",
+    "titulo": "University students' information literacy skills and impact of training in Bangladesh",
+    "revista": "IFLA Journal",
+    "anio": 2024,
+    "volumen": 50,
+    "numero_revista": null,
+    "paginas": "620-632",
+    "doi": "10.1177/03400352241266181",
+    "pmid": null,
+    "vancouver": "Akter T, Ahmed SMZ. University students' information literacy skills and impact of training in Bangladesh. IFLA J. 2024;50:620-632. doi:10.1177/03400352241266181"
+  },
+  {
+    "numero": 6,
+    "autores": "Mubofu C",
+    "titulo": "Experiences, purposes, satisfaction and missing library services as predictors of library information services provision: A case study",
+    "revista": "Alexandria: The Journal of National and International Library and Information Issues",
+    "anio": 2024,
+    "volumen": 33,
+    "numero_revista": "1-3",
+    "paginas": "64-79",
+    "doi": "10.1177/09557490241244747",
+    "pmid": null,
+    "vancouver": "Mubofu C. Experiences, purposes, satisfaction and missing library services as predictors of library information services provision: A case study. Alexandria. 2024;33(1-3):64-79. doi:10.1177/09557490241244747"
+  }
+]

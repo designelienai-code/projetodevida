@@ -1,0 +1,61 @@
+modelo: perfil_intermedio
+codigo_uce: INV-02
+generado: "2026-05-16"
+
+cabecero:
+  titulo: "APARATO RESPIRATORIO: FUNCIONES FISIOLÓGICAS E INFECCIONES RESPIRATORIAS AGUDAS COMO PRINCIPAL CAUSA DE ENFERMEDAD RESPIRATORIA EN BOLIVIA"
+  asignatura: Semiología
+  carrera: Medicina
+  universidad: UCEBOL
+  ano: "2026"
+  poblacion_estudio: "poblaciones de artículos científicos publicados (revisión documental)"
+  lugar_estudio: "bases de datos científicas (PubMed, Semantic Scholar)"
+  tipo_estudio: descriptivo
+  incluir_hipotesis: false
+
+secciones:
+  - id: introduccion
+    palabras: 220
+    citas: [1, 2, 3, 11]
+    revisiones: 3
+    log: "retry por palabras < 100 en primer intento; revisor corrigió 'más de 600 millones' → 'cerca de 600 millones' y frase sobre Bolivia sin cita; ampliación 2026-05-18: incorporación de párrafo sobre IRA (resfriado, faringitis, bronquitis, neumonía) con datos del INE Bolivia 2018 (ref. 11)"
+  - id: problema
+    palabras: 131
+    citas: [4, 5]
+    revisiones: 1
+    log: "APROBADO en primer ciclo"
+  - id: justificacion
+    palabras: 103
+    citas: []
+    revisiones: 1
+    log: "APROBADO en primer ciclo"
+  - id: objetivo_general
+    palabras: 38
+    citas: []
+    revisiones: 1
+    log: "APROBADO en primer ciclo"
+  - id: metodologia
+    palabras: 598
+    citas: [6, 7, 8, 9, 10]
+    revisiones: 1
+    log: "APROBADO en primer ciclo"
+  - id: conclusiones
+    palabras: 73
+    citas: []
+    revisiones: 1
+    log: "revisor eliminó frase tangente sobre Bolivia y formación clínica; texto expandido dentro del scope"
+
+total_palabras_estimado: 1163
+citas_totales: 11
+checklist_pre_entrega:
+  placeholders_resueltos: true
+  marcadores_generar_resueltos: true
+  citas_con_entrada_referencias: true
+  referencias_citadas_en_cuerpo: true
+  referencias_reales_verificadas: true
+  palabras_en_rango: true
+  coherencia_titulo_objetivo_pregunta: true
+  sin_opinion_autor_en_secciones_prohibidas: true
+  anti_plagio: true
+  pipeline_redactor_revisor: true
+  cero_em_dashes: true

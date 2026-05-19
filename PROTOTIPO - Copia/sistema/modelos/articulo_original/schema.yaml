@@ -1,0 +1,88 @@
+id: articulo_original
+codigo_uce: INV-04
+nombre: Artículo Original
+ano_curricular: avanzado
+descripcion: |
+  Artículo científico original completo (formato publicable).
+  IMPORTANTE: a diferencia de los otros modelos, REQUIERE datos reales o simulados de un estudio realizado.
+  Si el usuario no aporta datos, las secciones Resultados y Discusión deben generarse en modo "plan" y
+  marcarse explícitamente como "<DATOS PENDIENTES — sustituir tras ejecución del estudio>".
+total_palabras_objetivo: [2500, 4500]
+
+header_fields:
+  - id: titulo
+    label: "Título (mayúsculas, <21 palabras, centrado)"
+    transform: upper
+    max_palabras: 21
+    requerido: true
+  - id: tema_central
+    label: "Tema central del artículo"
+    requerido: true
+  - id: tipo_estudio
+    opciones: ["descriptivo", "analítico", "experimental", "observacional"]
+    requerido: true
+  - id: ano
+    default: "2026"
+    requerido: true
+  - id: tiene_datos
+    label: "¿Ya cuentas con resultados del estudio? (sí/no)"
+    default: "no"
+    requerido: true
+
+secciones:
+  - id: resumen
+    titulo: "RESUMEN"
+    palabras_max: 250
+    estructura: [introduccion, materiales_metodos, resultados, conclusion]
+    nota: "Redactar AL FINAL, después del resto del manuscrito."
+
+  - id: introduccion
+    titulo: "INTRODUCCIÓN"
+    estructura: 3_parrafos
+    parrafos:
+      - id: que_se_sabe
+        palabras: [100, 150]
+        citas_min: 2
+        citas_max: 3
+      - id: que_no_se_sabe
+        palabras: [70, 150]
+        citas_min: 1
+        citas_max: 2
+      - id: que_se_hara
+        palabras: [70, 150]
+        citas_min: 0
+        citas_max: 0
+
+  - id: materiales_y_metodos
+    titulo: "MATERIALES Y MÉTODOS"
+    sub_secciones:
+      - id: poblacion_y_sitio
+        palabras: [50, 100]
+      - id: procedimientos
+        palabras: [70, 150]
+      - id: consideraciones_eticas
+        palabras: [20, 60]
+        instrucciones: "Mencionar comité de ética + código FWA. Si no aplica consentimiento, indicarlo."
+      - id: plan_de_analisis
+        palabras: [50, 150]
+        instrucciones: "Describir análisis estadístico (descriptivo, X², regresión, software Stata/R/SPSS)."
+
+  - id: resultados
+    titulo: "RESULTADOS"
+    palabras_min: 200
+    requiere_datos: true
+    instrucciones: |
+      Describir SOLO hallazgos del propio estudio. NO comparar con otros. Si hay tablas, describir cada una en párrafo separado.
+      Orden: simple → impactante. Primer párrafo: re-introducir población y objetivo brevemente.
+
+  - id: discusion
+    titulo: "DISCUSIÓN"
+    requiere_datos: true
+    instrucciones: |
+      Comparar cada resultado con literatura previa. Ofrecer explicación (objetiva o subjetiva) del por qué.
+      Sub-sección final: Conclusiones y recomendaciones (50-100 palabras).
+
+  - id: referencias
+    titulo: REFERENCIAS BIBLIOGRÁFICAS
+    formato: vancouver
+    minimo: 8
